@@ -11,17 +11,7 @@ Route::get('/job/{id}',JobView::class)->name('jobs.view');
 
 Route::middleware(['auth'])->group(function () {
     Route::view('/myjobs', 'jobs.index')->name('myjobs.index');
-    // Route::get('/profile', function(){
-    //     return view('profile.index');
-    // })->name('profile');
 
-    // Route::get('/profile', function(){
-    //     return view('profile.edit');
-    // })->name('profile.edit');
-
-    // ROute::post('/profile', function(){
-    //     return view('profile.changepass');
-    // })->name('profile.changepass');
     Route::view('/profile', 'profile.index')->name('profile');
     Route::view('/edit', 'profile.edit')->name('profile.edit');
     Route::view('/changepass', 'profile.changepass')->name('profile.changepass');
@@ -29,6 +19,5 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::view('/job/add', 'jobs.add')->name('jobs.create');
-    
     Route::get('/job/{id}/edit', UpdateJob::class)->name('jobs.update');
 });

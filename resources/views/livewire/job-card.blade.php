@@ -25,15 +25,17 @@
 
     <div class="flex justify-between mt-auto pt-2">
 
-        @if((Auth::id() == $job->user_id) && (request()->routeIs('myjobs.index')))
+        @if((Auth::id() == $job->user_id) && (request()->routeIs('myjobs.*')))
+
             <a href="{{ route('jobs.update', $job->id) }}"
                 class="bg-green-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 mr-1 border-4 border-transparent box-border hover:bg-black hover:border-green-500">
                 Edit
             </a>
-            <a href="#"
+            <button wire:click="showConfirmModal({{ $job->id }})"
                 class="bg-red-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 ml-1 border-4 border-transparent box-border hover:bg-black hover:border-red-500">
                 Delete
-            </a>
+            </button>        
+            
         @else
             <a href="{{ route('jobs.view', $job->id) }}"
                 class="bg-blue-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 mr-1 border-4 border-transparent box-border hover:bg-black hover:border-blue-500">
