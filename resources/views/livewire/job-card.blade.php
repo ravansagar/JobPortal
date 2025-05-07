@@ -6,7 +6,7 @@
             alt="Job" class="h-32 w-32 object-cover rounded-md opacity-0" loading="lazy"
             onload="this.classList.remove('opacity-0')"/>
 
-        <div class="ml-2 flex flex-col justify-center text-center h-full w-1/2 p-2">
+        <div class="pl-2 flex flex-col justify-center text-center h-full w-1/2 p-2">
             <div class="font-bold text-sm mb-1 text-white truncate">{{ $job->name }}</div>
             <div class="font-bold text-xs text-gray-200 mb-1 truncate bg-blue-500 border border-blue-500 rounded p-0.5">
                 {{ $job->tag->name }}
@@ -28,11 +28,11 @@
         @if((Auth::id() == $job->user_id) && (request()->routeIs('myjobs.*')))
 
             <a href="{{ route('jobs.update', $job->id) }}"
-                class="bg-green-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 mr-1 border-4 border-transparent box-border hover:bg-black hover:border-green-500">
+                class="bg-green-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 pr-1 border-4 border-transparent box-border hover:bg-black hover:border-green-500">
                 Edit
             </a>
             <button wire:click="showConfirmModal({{ $job->id }})"
-                class="bg-red-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 ml-1 border-4 border-transparent box-border hover:bg-black hover:border-red-500">
+                class="bg-red-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 pl-1 border-4 border-transparent box-border hover:bg-black hover:border-red-500">
                 Delete
             </button>        
             
@@ -42,7 +42,7 @@
                 View
             </a>
             <a href="#"
-                class="bg-blue-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 ml-1 border-4 border-transparent box-border hover:bg-black hover:border-blue-500">
+                class="bg-blue-500 text-white px-3 py-1 font-medium rounded-md text-center text-sm w-1/2 pl-1 border-4 border-transparent box-border hover:bg-black hover:border-blue-500">
                 Apply
             </a>
         @endif

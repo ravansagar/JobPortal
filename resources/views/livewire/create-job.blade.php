@@ -1,4 +1,4 @@
-<div>
+<div class="w-[100vw]">
     <div class="min-h-screen bg-gradient-to-b flex items-center justify-center relative overflow-hidden">
         <div
             class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-100 z-0">

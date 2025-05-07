@@ -11,9 +11,9 @@
     @livewireStyles
 </head>
 
-<body>
+<body class="h-[100vh] w-[100vw]">
 
-    <div class="container mx-auto">
+    <div class="container w-[100vw]">
         @yield('content')
     </div>
 

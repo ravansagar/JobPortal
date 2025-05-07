@@ -1,11 +1,11 @@
-<div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 mx-8 my-4 lg:grid-cols-4 gap-4 pl-8">
+<div class="w-[100vw] bg-gray-900 !my-0">
+    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-4 px-15 py-4">
         @foreach ($jobs as $job)
             <livewire:job-card :job="$job" :key="$job->id" />
         @endforeach
     </div>
 
-    <div class="mt-4 pl-8 pr-8">
+    <div class="px-19 py-4">
         {{ $jobs->links() }} 
     </div>
 </div>

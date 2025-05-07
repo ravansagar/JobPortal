@@ -1,7 +1,7 @@
-<div class="bg-gray-900 p-2">
+<div class="bg-gray-900 w-[100vw] p-2">
     <div class="flex justify-between items-center">
 
-        <div class="w-1/4 flex justify-center">
+        <div class="w-1/4 flex justify-center border-white">
             <a href="/" class="text-white font-bold text-xl">
                 <svg height="50px" width="60px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 392.663 392.663" xml:space="preserve">
@@ -52,7 +52,7 @@
             @guest
                 @foreach ($startUp as $link)
                     <a href="{{ $link['url'] }}"
-                        class="text-white text-l font-medium  border border-white rounded px-4 py-1 mx-4 -my-2 hover:bg-white hover:text-black">
+                        class="text-white text-l font-medium  border border-white rounded px-4 py-1 -my-2 hover:bg-white hover:text-black">
                         {{ $link['name'] }}
                     </a>
                 @endforeach

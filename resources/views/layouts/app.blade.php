@@ -9,11 +9,11 @@
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         @livewireStyles
     </head>
-    <body class="bg-gray-900">
-        <div class="py-2">
+    <body class="overflow-x-hidden h-[100vh] w-[100vw] bg-gray-900">
+        <div >
             @livewire('navbar')
         </div>
-        <div class="container mx-auto pb-4">
+        <div class="container w-[100vw]">
             @yield('content')
         </div>
         @livewireScripts

@@ -1,4 +1,4 @@
-<div class="min-h-[91vh] bg-gradient-to-r from-blue-100 via-purple-100 to-yellow-100 p-6 -mb-4">
+<div class="min-h-[91vh] w-[100vw] bg-gradient-to-r from-blue-100 via-purple-100 to-yellow-100 p-6 -mb-4">
     <div class="bg-white shadow-lg rounded-2xl p-6 max-w-5xl mx-auto">
         <h2 class="text-2xl font-semibold mb-1">Welcome, {{ Auth::user()->name }}</h2>
         <p class="text-gray-500 mb-6">{{ now()->format('D, d F Y') }}</p>

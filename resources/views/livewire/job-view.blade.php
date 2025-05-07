@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center  text-white p-4">
+<div class="min-h-screen w-[100vw] flex items-center justify-center  text-white p-4">
     <div
             class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-100 z-0">
         </div>
