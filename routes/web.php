@@ -18,6 +18,8 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/delete', 'profile.delete')->name('profile.delete');
 
 
-    Route::view('/job/add', 'jobs.add')->name('jobs.create');
-    Route::get('/job/{id}/edit', UpdateJob::class)->name('jobs.update');
+    Route::view('/add', 'jobs.add')->name('jobs.create');
+    Route::get('/job/{id}/edit', function($id){
+        return view('jobs.update', ['id' => $id]);
+    })->name('jobs.update');
 });

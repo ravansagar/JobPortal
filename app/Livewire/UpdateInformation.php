@@ -14,15 +14,6 @@ class UpdateInformation extends Component
     public $name, $email, $image, $currentImage, $cname, $logo, $location;
     public $data = [];
 
-    protected function updateUser($data){
-        Auth::user()->update($data);
-    }
-
-    protected function updateCompany($data){
-        $company = Auth::user()->company;
-        $company->update($data);
-    }
-
     public function updateData()
     {
         $user = Auth::user();
