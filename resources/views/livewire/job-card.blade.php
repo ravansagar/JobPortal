@@ -1,8 +1,8 @@
 <div
-    class="aspect-[5/4] max-w-[20vw] bg-black rounded-lg shadow-md p-4 flex flex-col hover:scale-105 transition-transform duration-300">
+    class="aspect-[5/4] max-w-[20vw] min-h-[40vh] bg-black rounded-lg shadow-md p-4 flex flex-col hover:scale-105 transition-transform duration-300">
 
     <div class="flex items-start">
-        <img src="https://plus.unsplash.com/premium_photo-1675793715030-0584c8ec4a13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnJvbnRlbmQlMjBkZXZlbG9wZXJ8ZW58MHx8MHx8fDA%3D"
+        <img src="{{$job->image != '0' ? $job->image :"https://plus.unsplash.com/premium_photo-1675793715030-0584c8ec4a13?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZnJvbnRlbmQlMjBkZXZlbG9wZXJ8ZW58MHx8MHx8fDA%3D"}}"
             alt="Job" class="h-32 w-32 object-cover rounded-md opacity-0" loading="lazy"
             onload="this.classList.remove('opacity-0')"/>
 
@@ -23,7 +23,7 @@
         <span class=" font-medium line-clamp-1">Location: {{ $job->user->company->location }}</span>
     </div>
 
-    <div class="flex justify-between mt-auto pt-2">
+    <div class="flex justify-between mt-auto pt-2 gap-4 px-4">
 
         @if((Auth::id() == $job->user_id) && (request()->routeIs('myjobs.*')))
 

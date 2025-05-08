@@ -31,12 +31,11 @@ class DeleteJob extends Component
         if (auth()->id() === $job->user_id) {
             $job->delete();
             session()->flash('success', 'Job deleted successfully.');
-            return redirect()->route('myjobs.index');
         }
         else {
             session()->flash('error', 'Job not found or you are not authrized.');
-            return redirect()->route('myjobs.index');
         }
+        return redirect()->route('myjobs.index');
     }
 
     public function render()

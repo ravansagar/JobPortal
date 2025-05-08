@@ -10,13 +10,28 @@ use App\Models\Job;
 use App\Models\Tag;
 use Auth;
 
-// #[Layout('layouts.base')]
 class UpdateJob extends Component
 {
     use WithFileUploads;
 
     public $job, $tags = [];
     public $name, $salary, $description, $image, $tag_id, $tagName;
+
+    public $newTag = '';
+    public $showAddTag = false;
+
+    protected $listeners = ['tagAdded'];
+
+    public function tagAdded($tagId)
+    {
+        $this->tags = Tag::all();
+        $this->tag_id = $tagId;
+        $this->render();
+    }
+    public function showConfirmModal()
+    {
+        $this->dispatch('confirmModal');
+    }
 
     public function updateData()
     {
@@ -27,6 +42,7 @@ class UpdateJob extends Component
         }
 
         $data = [];
+        $status = false;
 
         if ($this->image) {
             $this->validate(['image' => ['image', 'max:5120']]);
@@ -57,11 +73,11 @@ class UpdateJob extends Component
         }
 
         if (!empty($data)) {
-            $this->job->update($data);
+            $status = $this->job->update($data);
         }
 
-        session()->flash('success', 'Job updated successfully.');
-        return redirect()->back();
+        $status ? session()->flash('success', 'Job updated successfully.') : session()->flash('error', 'Error while updating job');
+        return $status ? redirect(route('myjobs.index'), 200) : redirect()->back();
     }
 
 

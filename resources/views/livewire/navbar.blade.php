@@ -59,7 +59,9 @@
             @endguest
             @auth
                 <div class="flex items-center justify-end space-x-4 w-full relative z-50 pr-8">
-                    @livewire('search-bar')
+                    @if(request()->routeIs('home')) 
+                        @livewire('search-bar')
+                    @endif
                     @livewire('profile-dropdown')
                 </div>
             @endauth

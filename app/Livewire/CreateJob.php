@@ -16,11 +16,23 @@ class CreateJob extends Component
     use WithFileUploads;
     protected $tags = [];
     public $name, $image, $salary, $description, $tag_id;
+    protected $listeners = ['tagAdded'];
+    public function tagAdded($id)
+    {
+        $this->tags = Tag::all();
+        $this->tag_id = $id;
+        $this->render();
+    }
 
-
+    public function showConfirmModal()
+    {
+        $this->dispatch( 'confirmModal');
+    }
 
     public function store()
     {
+        $status = false;
+
         $this->validate([
             'name' => ['required', 'min:3'],
             'image' => ['nullable', 'image', 'max:5120'],
@@ -36,7 +48,7 @@ class CreateJob extends Component
             $imagePath = 'storage/images/job_icons/' . $imageName;
         }
 
-        $job = Job::create([
+        $status = Job::create([
             'name' => $this->name,
             'salary' => $this->salary,
             'description' => $this->description,
@@ -45,8 +57,8 @@ class CreateJob extends Component
             'image' => $imagePath,
         ]);
        
-        session()->flash('success', 'Job created successfully!');
-        return redirect()->back();
+        $status ? session()->flash('success', 'Job created successfully!') : session()->flash('error', 'Failed to create job');
+        return $status ? redirect(route('myjobs.index'), 200) : redirect()->back();
     }
 
     public function mount()
