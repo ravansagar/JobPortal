@@ -32,7 +32,7 @@
             </a>
             <a href="{{ url()->previous() }}"
                 class="inline-block mt-4 px-4 py-2 bg-white font-semibold text-green-700 rounded hover:bg-green-500 hover:text-white transition duration-300 ease-in-out">
-                 Apply
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Apply
             </a>
         </div>
     </div>
