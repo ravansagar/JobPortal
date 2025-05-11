@@ -18,7 +18,7 @@ class UpdateInformation extends Component
 
     public function updateData()
     {
-        $this->reset(['successMsg', 'errorMsg']);
+        // $this->reset(['successMsg', 'errorMsg']);
 
         $user = Auth::user();
 
@@ -73,6 +73,8 @@ class UpdateInformation extends Component
 
         if (!empty($UserData)) {
             $result = Auth::user()->update($UserData);
+            // return redirect()->route('profile.edit')->with('success', 'Updated successfully.');
+
             $result ? session()->flash('success', 'Profile information updated successfully.') : 
                 session()->flash('error', 'Failed to update profile information.');
         }
@@ -87,11 +89,11 @@ class UpdateInformation extends Component
             $result ? $this->successMsg = 'Company information updated successfully.' :
                 $this->errorMsg = "Company to update profile information.";
 
-            $result ? session()->flash('success', 'Company information updated successfully.') : 
+            $result ? session()->flash('successc', 'Company information updated successfully.') : 
                 session()->flash('error', 'Failed to update company information.');
         }
 
-        return redirect()->back();
+        return redirect()->route('profile.edit');
     }
 
     public function mount()
