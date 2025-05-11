@@ -46,7 +46,7 @@
             </a>
             <a href="#"
                 class="bg-blue-500 text-white px-3 py-1 rounded-md text-center text-[10px] hover:bg-black hover:border-blue-500">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Apply
             </a>
         @endif
     </div>
