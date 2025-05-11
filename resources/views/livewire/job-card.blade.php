@@ -1,5 +1,5 @@
 <div class="bg-black rounded-lg shadow-md p-2 flex flex-col hover:scale-105 transition-transform duration-300 max-w-[50vh]">
-        <div class="flex w-[15vw] h-[12vh]">
+    <div class="flex w-[15vw] h-[12vh]">
         <img src="{{ $job->image != '0' ? $job->image : 'https://plus.unsplash.com/premium_photo-1675793715030-0584c8ec4a13?w=600&auto=format&fit=crop&q=60' }}"
             alt="Job"
             class="h-full w-auto min-w-[40%] max-w-[50%] object-cover rounded-md opacity-0"
