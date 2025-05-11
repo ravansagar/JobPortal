@@ -14,9 +14,17 @@
     @endif
     <div
         class="absolute rounded-lg inset-0 bg-white/10 backdrop-blur-md shadow-lg shadow-gray-500/50 p-6 flex flex-col items-center z-10">
-        <h2
-            class="text-2xl font-bold font-serif pb-4 bg-gradient-to-r from-green-500 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
-            Edit Profile Information</h2>
+        <div class="w-full flex mx-auto justify-between">
+            <a href="{{ route('profile') }}"
+                    class="text-xl border border-black rounded-full mb-6 -mt-1 px-2 mx-4 hover:outline-green hover:bg-green-500">&larr;</a>
+            <h2
+                class="text-2xl font-bold font-serif pb-4 bg-gradient-to-r from-green-500 via-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                Edit Profile Information
+            </h2>
+            <h2 class="w-[1/4] mr-4"></h2>
+        </div>
+
+
         <div class="w-full flex justify-between px-15">
             <div class="w-32 h-32 relative rounded-full border-4 border-white shadow mb-6">
                 <img src="{{ $currentImage }}" alt="Profile Image" class="w-full h-full object-cover rounded-full">

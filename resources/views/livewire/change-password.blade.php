@@ -3,7 +3,12 @@
     <form wire:submit.prevent="UpdatePassword">
     <div
         class="absolute rounded-lg inset-0 bg-white/10 backdrop-blur-md shadow-lg shadow-gray-500/50 p-6 flex flex-col items-center z-10">
-        <h2 class="text-2xl font-bold font-serif pb-4 bg-gradient-to-r from-green-500 via-cyan-500 to-blue-500 bg-clip-text text-transparent">Change Password</h2>
+        <div class="w-full flex mx-auto justify-between">
+            <a href="{{ route('profile') }}"
+                        class="text-xl font-bold border border-black rounded-full mb-6 -mt-1 px-2 mx-4 hover:outline-green hover:bg-green-500">&larr;</a>
+            <h2 class="text-2xl font-bold font-serif pb-4 bg-gradient-to-r from-green-500 via-cyan-500 to-blue-500 bg-clip-text text-transparent">Change Password</h2>
+            <h2 class="w-[1/3] mr-8"></h2>
+        </div>
         
         <hr class="w-full border-t border-2 border-gray-700 my-4">
         
