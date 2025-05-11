@@ -15,7 +15,7 @@ class CreateJob extends Component
 {
     use WithFileUploads;
     protected $tags = [];
-    public $name, $image, $salary, $description, $tag_id;
+    public $name, $image, $currency, $salary, $description, $tag_id;
     protected $listeners = ['tagAdded'];
     public function tagAdded($id)
     {
@@ -39,6 +39,7 @@ class CreateJob extends Component
             'description' => ['required', 'min:10'],
             'salary' => ['required', 'numeric'],
             'tag_id' => ['required', 'integer'],
+            'currency' => ['required', 'string', 'min:3']
         ]);
 
         $imagePath = null;
@@ -50,6 +51,7 @@ class CreateJob extends Component
 
         $status = Job::create([
             'name' => $this->name,
+            'currency' => $this->currency,
             'salary' => $this->salary,
             'description' => $this->description,
             'tag_id' => $this->tag_id,
@@ -67,7 +69,6 @@ class CreateJob extends Component
     }
     public function render()
     {
-        $this->mount();
         $tags = $this->tags;
         return view('livewire.create-job', compact('tags'));
     }

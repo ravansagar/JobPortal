@@ -15,7 +15,7 @@ class UpdateJob extends Component
     use WithFileUploads;
 
     public $job, $tags = [];
-    public $name, $salary, $description, $image, $tag_id, $tagName;
+    public $name, $currency, $salary, $description, $image, $tag_id, $tagName;
 
     public $newTag = '';
     public $showAddTag = false;
@@ -26,7 +26,7 @@ class UpdateJob extends Component
     {
         $this->tags = Tag::all();
         $this->tag_id = $tagId;
-        $this->render();
+        // $this->render();
     }
     public function showConfirmModal()
     {
@@ -57,6 +57,11 @@ class UpdateJob extends Component
             $data['name'] = $this->name;
         }
 
+        if (!is_null($this->currency) && $this->currency != $this->job->currency) {
+            $this->validate(['currency' => ['required', 'string', 'min:3']]);
+            $data['currency'] = $this->currency;
+        }
+
         if (!is_null($this->salary) && $this->salary != $this->job->salary) {
             $this->validate(['salary' => ['required', 'numeric']]);
             $data['salary'] = $this->salary;
@@ -73,6 +78,7 @@ class UpdateJob extends Component
         }
 
         if (!empty($data)) {
+            // dd($data);
             $status = $this->job->update($data);
         }
 
@@ -85,6 +91,7 @@ class UpdateJob extends Component
     {
         $this->job = Job::findOrFail($id);
         $this->name = $this->job->name;
+        $this->currency = $this->job->currency;
         $this->salary = $this->job->salary;
         $this->description = $this->job->description;
         $this->tag_id = $this->job->tag_id;

@@ -45,11 +45,13 @@
                     </svg>
                 </x-form.input-field>
 
-                <x-form.input-field name="salary" placeholder="Salary">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 3v18M3 12h18" />
-                    </svg>
+                <x-form.input-field name="salary" placeholder="Salary" class="!pl-12">
+                    <select wire:model="currency" class="top-1.5 bg-transparent text-gray-900 text-sm font-semibold focus:outline-none">
+                        <option value="npr">&#8360;</option>
+                        <option value="usd">&dollar;</option>
+                        <option value="inr">&#8377;</option>
+                        <option value="eur">&euro;</option>
+                    </select>
                 </x-form.input-field>
 
                 <div class="mb-4">
@@ -64,7 +66,7 @@
                     <div class="flex space-x-2">
                         <select wire:model="tag_id"
                             class="w-[65%] px-3 py-2 bg-white/20 border border-white/30 rounded text-white placeholder-white/70 focus:outline-none">
-                            <option value="" class="text-blue-500">Select a Tag</option>
+                            <option value="{{ $tag_id ? $tag_id : '' }}" class="text-blue-500">{{ App\Models\Tag::find($tag_id)->name }}</option>
                             @foreach ($tags as $tag)
                                 <option value="{{ $tag->id }}" class="text-blue-500">{{ $tag->name }}</option>
                             @endforeach
@@ -79,7 +81,7 @@
                         <span class="text-red-300 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-                
+                @dump($tag_id)
                 <button type="submit"
                     class="w-full py-2 px-2 flex justify-center bg-white text-purple-700 font-semibold rounded-md hover:bg-gray-100 transition-all">
                     Update Job

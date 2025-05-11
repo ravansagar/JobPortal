@@ -52,7 +52,7 @@
             @guest
                 @foreach ($startUp as $link)
                     <a href="{{ $link['url'] }}"
-                        class="text-white text-l font-medium  border border-white rounded px-4 py-1 -my-2 hover:bg-white hover:text-black">
+                        class="text-white text-l font-medium  border border-white rounded px-4 mx-4 py-1 -my-2 hover:bg-white hover:text-black">
                         {{ $link['name'] }}
                     </a>
                 @endforeach

@@ -14,20 +14,24 @@ class UpdateInformation extends Component
     public $name, $email, $image, $currentImage, $cname, $logo, $location;
     public $data = [];
 
+    public $successMsg, $errorMsg;
+
     public function updateData()
     {
+        $this->reset(['successMsg', 'errorMsg']);
+
         $user = Auth::user();
 
         $UserData = [];
 
         $CompanyData = [];
 
-        if (!is_null($this->name) && $this->name !== $user->name) {
+        if (!is_null($this->name) && $this->name !== $user->name) { 
             $this->validate(["name" => ["required", 'string', 'min:3']]);
             $UserData['name'] = $this->name;
         }
 
-        if (!is_null($this->email && $this->email !== $user->email)) {
+        if (!is_null($this->email) && $this->email !== $user->email) {
             $this->validate(["email" => ["required", 'email', 'unique:users,email'. Auth::id()]]);
             $UserData['email'] = $this->email;
         }
@@ -68,19 +72,26 @@ class UpdateInformation extends Component
         }
 
         if (!empty($UserData)) {
-            Auth::user()->update($UserData);
+            $result = Auth::user()->update($UserData);
+            $result ? session()->flash('success', 'Profile information updated successfully.') : 
+                session()->flash('error', 'Failed to update profile information.');
         }
 
-        $company = Auth::user()->company;
-        if ($company == null) {
-            return;
-        }
-
+        
         if (!empty($CompanyData)) {
-            $company->update($CompanyData);
+            $company = Auth::user()->company;
+            if ($company == null) {
+                return;
+            }
+            $result = $company->update($CompanyData);
+            $result ? $this->successMsg = 'Company information updated successfully.' :
+                $this->errorMsg = "Company to update profile information.";
+
+            $result ? session()->flash('success', 'Company information updated successfully.') : 
+                session()->flash('error', 'Failed to update company information.');
         }
 
-        return;
+        return redirect()->back();
     }
 
     public function mount()
@@ -100,7 +111,6 @@ class UpdateInformation extends Component
 
     public function render()
     {
-        $this->mount();
         return view('livewire.update-information');
     }
 }

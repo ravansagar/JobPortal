@@ -8,7 +8,7 @@
         <hr class="w-full border-t border-2 border-gray-700 my-4">
         
         <div>
-            <x-form.input-field name="current_password"  wire:model.defer="current_password" type="password" placeholder="Enter current password" class="!bg-gray-700">
+            <x-form.input-field name="current_password"  wire:model.defer="current_password" type="password" placeholder="Enter current password" class="!bg-gray-700 max-w-[100%]">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
                     stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />

@@ -5,7 +5,7 @@
         @endforeach
     </div>
 
-    <div class="px-19 py-4">
+    <div class="px-19 py-2">
         {{ $jobs->links() }} 
     </div>
 </div>
