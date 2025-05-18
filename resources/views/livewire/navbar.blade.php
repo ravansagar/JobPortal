@@ -1,4 +1,4 @@
-<div class="bg-gray-900 w-[100vw] p-2">
+<div class="bg-gray-200 w-[100vw] p-2">
     <div class="flex justify-between items-center">
 
         <div class="w-1/4 flex justify-center border-white">
@@ -39,12 +39,30 @@
             </a>
         </div>
 
-        <div class="w-1/2 flex justify-center space-x-4">
+        <div class="w-1/2 flex justify-center space-x-4 text-gray-800">
             @foreach($navLinks as $link)
-                <a href="{{ $link['url'] }}"
-                    class="text-white text-xl font-bold px-4 {{ $link['active'] ? 'border-b-2 border-blue-500' : '' }}">
-                    {{ $link['name'] }}
-                </a>
+                @if(Auth::user()?->role == 'agent')
+                    @if($link['name'] === 'MyJobs')
+                        <a href="{{ $link['url'] }}"
+                            class="text-xl font-bold px-4 {{ $link['active'] ? 'border-b-2 border-blue-500' : '' }}">
+                            {{ $link['name'] }}
+                        </a>
+                    @endif
+                @endif
+                @if(Auth::user()?->role == 'admin')
+                    @if($link['name'] === 'Admin Dashboard')
+                        <a href="{{ $link['url'] }}"
+                            class="text-xl font-bold px-4 {{ $link['active'] ? 'border-b-2 border-blue-500' : '' }}">
+                            {{ $link['name'] }}
+                        </a>
+                    @endif
+                @endif
+                @if($link['name'] != 'MyJobs' && $link['name'] != 'Admin Dashboard')
+                    <a href="{{ $link['url'] }}"
+                        class="text-xl font-bold px-4 {{ $link['active'] ? 'border-b-2 border-blue-500' : '' }}">
+                        {{ $link['name'] }}
+                    </a>
+                @endif
             @endforeach
         </div>
 
@@ -52,14 +70,17 @@
             @guest
                 @foreach ($startUp as $link)
                     <a href="{{ $link['url'] }}"
-                        class="text-white text-l font-medium  border border-white rounded px-4 mx-4 py-1 -my-2 hover:bg-white hover:text-black">
+                        class="text-l font-medium  border border-black/80 rounded px-4 mx-4 py-1 hover:text-white hover:bg-gray-900">
                         {{ $link['name'] }}
                     </a>
                 @endforeach
+                @if(request()->routeIs('home'))
+                    @livewire('search-bar')
+                @endif
             @endguest
             @auth
-                <div class="flex items-center justify-end space-x-4 w-full relative z-50 pr-8">
-                    @if(request()->routeIs('home')) 
+            <div class="flex items-center justify-end space-x-4 w-full relative z-1000 pr-8">
+                    @if(request()->routeIs('home'))
                         @livewire('search-bar')
                     @endif
                     @livewire('profile-dropdown')

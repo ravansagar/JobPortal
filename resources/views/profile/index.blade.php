@@ -1,5 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
+<x-layouts.app>
     @livewire('profile-page')
-@endsection
+</x-layouts.app>

@@ -1,13 +1,8 @@
 <div class="min-h-screen bg-gradient-to-b flex items-center justify-center relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-100 z-0">
-    </div>
-    <div
-        class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1673240367277-e1d394465b56?q=80&w=2069&auto=format&fit=crop')] bg-no-repeat bg-bottom bg-cover z-0">
-    </div>
-
-    <div class="z-10 bg-white/10 backdrop-blur-md text-white rounded-xl shadow-2xl p-8 w-[350px]">
+    {{-- <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-100 z-0"> --}}
+    <div class="z-10 bg-white/30 backdrop-blur-md text-white rounded-xl shadow-2xl p-8 w-[350px]">
         <form wire:submit.prevent="login">
-            <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">Login</h2>
 
             @if (session()->has('error'))
                 <div class="text-red-400 mb-4">{{ session('error') }}</div>
@@ -31,20 +26,20 @@
 
             <div class="flex items-center justify-between mb-6 text-sm">
                 <label class="inline-flex items-center">
-                    <input type="checkbox" class="form-checkbox text-purple-500 bg-purple-700 border-none">
-                    <span class="ml-2">Remember me</span>
+                    <input type="checkbox" class="form-checkbox text-gray-800 bg-purple-700 border-none">
+                    <span class="ml-2 text-gray-800">Remember me</span>
                 </label>
-                <a href="#" class="text-purple-200 hover:underline">Forgot password?</a>
+                <a href="#" class="text-purple-500 hover:underline">Forgot password?</a>
             </div>
 
             <button type="submit"
-                class="w-full py-2 bg-white text-purple-700 font-semibold rounded-md hover:bg-gray-100 transition-all">
+                class="w-full py-2 bg-black/30 text-purple-700 font-semibold rounded-md hover:bg-gray-100 transition-all">
                 Login
             </button>
         </form>
 
-        <p class="text-sm text-center mt-4">Don't have an account?
-            <a href="{{ route('register') }}" class="underline hover:text-purple-300">Register</a>
+        <p class="text-sm text-center mt-4 text-gray-800">Don't have an account?
+            <a href="{{ route('register') }}" class="underline text-gray-800 hover:text-purple-500">Register</a>
         </p>
     </div>
 </div>

@@ -6,7 +6,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use App\Models\Job;
 
-#[Layout('layouts.base')] 
+#[Layout('components.layouts.base')] 
 class JobView extends Component
 {
     public $job;

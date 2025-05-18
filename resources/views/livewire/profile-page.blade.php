@@ -1,4 +1,4 @@
-<div class="min-h-[91vh] w-[100vw] bg-gradient-to-r from-blue-100 via-purple-100 to-yellow-100 p-6 -mb-4">
+<div class="min-h-[91vh] w-[100vw] bg-white/40 p-6 -mb-4">
     <div class="bg-white shadow-lg rounded-2xl p-6 max-w-5xl mx-auto">
         <h2 class="text-2xl font-semibold mb-1">Welcome, {{ Auth::user()->name }}</h2>
         <p class="text-gray-500 mb-6">{{ now()->format('D, d F Y') }}</p>
@@ -43,7 +43,7 @@
                     </div>
                     <div>
                         <h2 class="text-l font-semibold text-gray-900">Company Location</h2>
-                        @if(Auth::user()->company->location == '')
+                        @if(Auth::user()->company?->location == '')
                             <div class="my-2 mb-4 relative">
                                 <input type="text" wire:model.lazy="location" placeholder="Enter company location"
                                     wire:keydown.enter="updateCompany" wire:blur="updateCompany"
@@ -61,12 +61,12 @@
                 </div>
 
                 <div class="w-[40%] h-auto flex items-center justify-center">
-                    @if(Auth::user()->company->image == '')
+                    @if(Auth::user()->company?->image == '')
                         <input type="file" wire:model="logo" wire:keydown.enter="updateCompany" wire:blur="updateCompany"
-                            class="rounded-sm border-4 border-purple-500 shadow" />
+                            class="rounded-sm border-4 border-purple-500 shadow" placeholder="upload company logo" />
                         @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     @else
-                        <img src="{{ Auth::user()->company->image }}"
+                        <img src="{{ Auth::user()->company?->image }}"
                             class="h-[60%] w-[60%]  rounded-sm border-4 border-purple-500 shadow" alt="Company Logo" />
                     @endif
                 </div>

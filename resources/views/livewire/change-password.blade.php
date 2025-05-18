@@ -1,5 +1,5 @@
 <div
-    class="w-1/3 h-[55vh]  mx-auto flex flex-col justify-center items-center pt-8 bg-gradient-to-r from-blue-100 via-purple-100 to-yellow-100 relative">
+    class="w-1/3 h-[55vh]  mx-auto flex flex-col justify-center items-center pt-8 bg-white relative">
     <form wire:submit.prevent="UpdatePassword">
     <div
         class="absolute rounded-lg inset-0 bg-white/10 backdrop-blur-md shadow-lg shadow-gray-500/50 p-6 flex flex-col items-center z-10">

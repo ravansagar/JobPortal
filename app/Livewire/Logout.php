@@ -4,10 +4,11 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Auth;
-use Request;
+use Livewire\Attributes\On;
 
 class Logout extends Component
 {
+    #[On('logout')]
     public function logout()
     {
         Auth::logout();

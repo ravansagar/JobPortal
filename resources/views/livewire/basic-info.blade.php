@@ -1,4 +1,4 @@
-<div class="relative isolate overflow-hidden h-[30vh] bg-gray-900 w-[100vw] px-8 py-8 sm:py-8 ">
+<div class="relative isolate overflow-hidden h-[30vh] bg-gray-100 w-[100vw] max-h-[100vh] z-50 px-8 py-8 sm:py-8 ">
     <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
         alt="" class="absolute inset-0 -z-10 size-full object-cover object-right w-[100vw] md:object-center">
     <div class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
@@ -27,15 +27,29 @@
             <dl class="mt-4 grid grid-cols-1 gap-8 sm:mt-4 sm:grid-cols-2 lg:flex lg:justify-between">
                 <div class="flex flex-col-reverse gap-1">
                     <dt class="text-base text-gray-300">Open Jobs</dt>
-                    <dd class="text-xl font-semibold tracking-tight text-white">{{$job }}</dd>
+                    <dd class="text-xl font-semibold tracking-tight text-white">
+                        {{$job }}
+                    </dd>
                 </div>
                 <div class="flex flex-col-reverse gap-1">
                     <dt class="text-base text-gray-300">Categories</dt>
-                    <dd class="text-xl font-semibold tracking-tight text-white">{{ $tag }}+</dd>
+                    <dd class="text-xl font-semibold tracking-tight text-white">
+                        {{-- <button wire:click="$set('showTags', true)" class="cursor-pointer">{{ $tag }}+</button>
+                        --}}
+                        <button type="button" wire:click="showTagList" class="cursor-pointer">{{ $tag }}+</button>
+                    </dd>
                 </div>
                 <div class="flex flex-col-reverse gap-1">
                     <dt class="text-base text-gray-300">Companies</dt>
-                    <dd class="text-xl font-semibold tracking-tight text-white">{{ $company }}+</dd>
+                    <dd class="text-xl font-semibold tracking-tight text-white">
+                        {{-- <button wire:click="$set('showCompany', true)" class="cursor-pointer">{{ $companies
+                            }}+</button> --}}
+                        {{-- <button wire:click="{{ $showCompany ? " hideCompany" : "showCompany" }}"
+                            class="cursor-pointer">{{$companies }}</button> --}}
+                        <button type="button" wire:click="showCompanyList"
+                            class="cursor-pointer">{{ $companies }}+</button>
+
+                    </dd>
                 </div>
                 <div class="flex flex-col-reverse gap-1">
                     <dt class="text-base text-gray-300">Hours per week</dt>

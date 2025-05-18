@@ -1,6 +1,6 @@
 <div x-data="{ open: false }" class="relative">
     <button @click="open = !open" class="focus:outline-none">
-        <img src="{{ Auth::user()->image }}" alt="Profile"
+        <img src="{{ asset(Auth::user()->image) }}" alt="Profile"
             class="w-10 h-10 rounded-full border-2 border-white object-cover">
     </button>
 
@@ -9,7 +9,6 @@
         <a href="{{ route('profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
             {{ Auth::user()->company_id == null ? 'Update Profile' : 'My Profile'}} 
             </a>
-        <a href="{{ route('jobs.create') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Create Job</a>
         @livewire('logout')
     </div>
 </div>

@@ -10,13 +10,14 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 
-#[Layout('layouts.base')]
+#[Layout("components.layouts.base")]
 class CreateJob extends Component
 {
     use WithFileUploads;
-    protected $tags = [];
-    public $name, $image, $currency, $salary, $description, $tag_id;
+    public $tags = [];
+    public $name, $image, $currency = "npr", $salary, $description, $tag_id;
     protected $listeners = ['tagAdded'];
+
     public function tagAdded($id)
     {
         $this->tags = Tag::all();
@@ -31,8 +32,8 @@ class CreateJob extends Component
 
     public function store()
     {
+        dump($this->all());
         $status = false;
-
         $this->validate([
             'name' => ['required', 'min:3'],
             'image' => ['nullable', 'image', 'max:5120'],
@@ -41,14 +42,14 @@ class CreateJob extends Component
             'tag_id' => ['required', 'integer'],
             'currency' => ['required', 'string', 'min:3']
         ]);
-
+        
         $imagePath = null;
         if ($this->image) {
             $imageName = time() . '_' . $this->image->getClientOriginalName();
             $this->image->storeAs('images/job_icons', $imageName, 'public');
             $imagePath = 'storage/images/job_icons/' . $imageName;
         }
-
+        
         $status = Job::create([
             'name' => $this->name,
             'currency' => $this->currency,
@@ -58,7 +59,7 @@ class CreateJob extends Component
             'user_id' => Auth::id(),
             'image' => $imagePath,
         ]);
-       
+        
         $status ? session()->flash('success', 'Job created successfully!') : session()->flash('error', 'Failed to create job');
         return $status ? redirect(route('myjobs.index'), 200) : redirect()->back();
     }
@@ -69,7 +70,6 @@ class CreateJob extends Component
     }
     public function render()
     {
-        $tags = $this->tags;
-        return view('livewire.create-job', compact('tags'));
+        return view('livewire.create-job');
     }
 }

@@ -23,7 +23,7 @@
         wire:input="performSearch"
         type="text"
         placeholder="Search..."
-        class="mr-[7rem] px-4 py-2 -mt-5 text-white bg-gray-800 rounded-md w-48 focus:outline-none absolute"
+        class="mr-[7rem] px-4 py-2 text-white bg-gray-800 rounded-md -mt-4 w-48 focus:outline-none absolute"
         @keydown.escape.window="open = false"
         autofocus
     >

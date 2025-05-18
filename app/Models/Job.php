@@ -10,8 +10,12 @@ class Job extends Model
 {
     use HasFactory;
     protected $table = "joblist";
-    protected $fillable = ['name', 'image', 'currency', 'salary', 'description','user_id','tag_id'];
+    protected $fillable = ['name', 'image', 'currency', 'salary', 'description', 'user_id', 'tag_id'];
 
+    public function application()
+    {
+        return $this->hasMany(ApplyJob::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

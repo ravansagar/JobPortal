@@ -9,7 +9,7 @@
                         class="bg-white text-red-600 px-4 py-2 rounded cursor-pointer font-semibold hover:bg-gray-200">
                         Yes, Delete
                     </button>
-                    <button wire:click="closeModal"
+                    <button wire:click="$set('showModal', false)"
                         class="bg-gray-300 text-black px-4 py-2 rounded cursor-pointer font-semibold hover:bg-gray-400">
                         Cancel
                     </button>

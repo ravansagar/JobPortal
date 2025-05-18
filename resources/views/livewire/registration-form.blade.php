@@ -1,16 +1,11 @@
 <div class="min-h-screen bg-gradient-to-b  flex items-center justify-center relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-100 z-0">
-    </div>
-    <div
-        class="absolute inset-0 bg-[url('https://plus.unsplash.com/premium_photo-1673240367277-e1d394465b56?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-no-repeat bg-bottom bg-cover  z-0">
-    </div>
-
+    
     <div class="z-10 bg-white/10 backdrop-blur-md text-white rounded-xl shadow-2xl p-8 w-[350px]">
         <form wire:submit.prevent='register'>
             @csrf
-            <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+            <h2 class="text-2xl text-gray-800 font-bold mb-6 text-center">Register</h2>
 
-
+            <input type="hidden" wire:model="role" value="user"/>
             <x-form.input-field name="name" placeholder="Full name">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -44,12 +39,16 @@
                 </svg>
             </x-form.input-field>
 
-            <button type="submit"
-                class="w-full py-2 bg-white text-purple-700 font-semibold rounded-md hover:bg-gray-100 transition-all">
+            <button type="submit" wire:click.prevent="setRoleAndRegister('user')"
+                class="w-full py-2 bg-black/30 text-purple-700 font-semibold rounded-md hover:bg-gray-100 transition-all">
                 Register
             </button>
+            <button type="submit" wire:click.prevent="setRoleAndRegister('agent')"
+                class="w-full cursor-pointer text-blue-500 font-semibold flex justify-center my-2 py-2 rounded-md hover:bg-blue-500 hover:text-white/80">
+            Register as Agent
+            </button>
         </form>
-        <p class="text-sm text-center mt-4">Already have an account? <a href="{{ route('login') }}"
-                class="underline hover:text-purple-300">login</a></p>
+        <p class="text-sm text-gray-800 text-center">Already have an account? <a href="{{ route('login') }}"
+                class="underline  hover:text-purple-500">login</a></p>
     </div>
 </div>

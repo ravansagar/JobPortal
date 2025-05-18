@@ -12,30 +12,25 @@ class DeleteJob extends Component
 
     public $jobId;
     public $showModal = false; 
-
+    
     public function showConfirmModal($jobId)
     {
         $this->jobId = $jobId;
         $this->showModal = true;
     }
 
-    public function closeModal()
-    {
-        $this->showModal = false;
-    }
-
     public function delete($jobId)
     {
         $job = Job::findOrFail($jobId);
 
-        if (auth()->id() === $job->user_id) {
+        if (auth()->id() === $job->user_id || Auth::user()->role == 'admin') {
             $job->delete();
             session()->flash('success', 'Job deleted successfully.');
         }
         else {
             session()->flash('error', 'Job not found or you are not authrized.');
         }
-        return redirect()->route('myjobs.index');
+        return redirect(url()->previous());
     }
 
     public function render()

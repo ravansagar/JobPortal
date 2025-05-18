@@ -1,53 +1,88 @@
 <?php
-
 namespace App\Livewire;
 
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Job;
+use App\Models\User;
+use App\Models\Tag;
+use App\Models\Company;
 use Route;
 use Auth;
 
 class JobList extends Component
 {
-    public $search = '';
-
     use WithPagination;
+
+    public $search = '';
     public $perPage = 8;
+    public $selectedTagId = null;
+    public $selectedCompanyId = null;
+
     protected $paginationTheme = 'tailwind';
 
-    protected $listeners = ['setSearch' => 'setSearch'];
+    protected $listeners = [
+        'setSearch' => 'setSearch',
+    ];
 
     public function setSearch($value)
     {
         $this->search = $value;
+        $this->resetPage();
     }
 
-    public function getJobs(){
+    #[On('filterByTag')]
+    public function filterByTag(Tag $tag)
+    {
+        $this->selectedTagId = $tag->id;
+        $this->resetPage();
+    }
+
+    #[On('filterByCompany')]
+    public function filterByCompany(Company $company)
+    {
+        $this->selectedCompanyId = $company->id;
+        $this->resetPage();
+    }
+
+    #[On('clearFilters')]
+    public function clearFilters()
+    {
+        $this->selectedTagId = null;
+        $this->selectedCompanyId = null;
+        $this->resetPage();
+    }
+
+    public function getJobs()
+    {
+        $query = Job::with(['tag', 'user.company']);
         $currentRoute = Route::getCurrentRoute();
-        $jobs = Job::class;
-        if ($currentRoute->uri == 'myjobs') {
-            $userId = Auth::user()->id;
-            $jobs = ($this->search !== '') ?
-                Job::where('user_id', $userId) 
-                    ->where(function ($query) { 
-                        $query->where('name', 'like', '%' . $this->search . '%')
-                            ->orWhere('description', 'like', '%' . $this->search . '%');
-                    })
-                    ->paginate($this->perPage) :
-                    Job::where('user_id', $userId)->paginate($this->perPage);
-        } else {
-            $jobs = ($this->search !== '') ?
-                Job::where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('description', 'like', '%' . $this->search . '%')
-                    ->orWhereHas('tag', function ($query) {
-                        $query->where('name', 'like', '%' . $this->search . '%');
-                    })
-                    ->paginate($this->perPage) :
-    
-                Job::paginate($this->perPage);
+
+        if ($currentRoute && $currentRoute->uri === 'myjobs') {
+            $query->where('user_id', Auth::id());
         }
-        return $jobs;
+
+        if ($this->search !== '') {
+            $query->where(function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('description', 'like', '%' . $this->search . '%')
+                    ->orWhereHas('tag', function ($tagQuery) {
+                        $tagQuery->where('name', 'like', '%' . $this->search . '%');
+                    });
+            });
+        }
+
+        if ($this->selectedTagId !== null) {
+            $query->where('tag_id', $this->selectedTagId);
+        }
+
+        if ($this->selectedCompanyId !== null) {
+            $userIds = User::where('company_id', $this->selectedCompanyId)->pluck('id');
+            $query->whereIn('user_id', $userIds);
+        }
+        return $query->paginate($this->perPage);
     }
 
     public function render()

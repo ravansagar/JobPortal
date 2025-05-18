@@ -5,8 +5,10 @@ namespace App\Livewire;
 use Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use function Termwind\render;
+use Livewire\Attributes\Layout;
 
+
+#[Layout("components.layouts.app")]
 class UpdateInformation extends Component
 {
     use WithFileUploads;

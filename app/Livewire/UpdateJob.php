@@ -5,11 +5,12 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
+use Livewire\Attributes\Layout;
 use App\Models\Job;
 use App\Models\Tag;
 use Auth;
 
+#[Layout("components.layouts.base")]
 class UpdateJob extends Component
 {
     use WithFileUploads;
