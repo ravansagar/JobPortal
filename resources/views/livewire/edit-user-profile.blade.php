@@ -40,7 +40,7 @@
                             @elseif($previousPhoto)
                                 <img class="h-24 w-24 rounded-full object-cover" src="{{ asset(path: $previousPhoto) }}" alt="Profile preview">
                             @elseif ($user->profile_photo)
-                                <img class="h-24 w-24 rounded-full object-cover" src="{{ Storage::url($user->profile_photo_path) }}" alt="{{ $user->name }}">
+                                <img class="h-24 w-24 rounded-full object-cover" src="{{ Storage::url($user->profile_photo) }}" alt="{{ $user->name }}">
                             @else
                                 <div class="h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-xl font-bold">
                                     {{ substr($user->name, 0, 1) }}
@@ -89,19 +89,26 @@
 
                         <div class="sm:col-span-3">
                             <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
-                            <x-form.input-field name="name" placeholder="Enter address..." />
+                            <x-form.input-field name="location" placeholder="Enter address..." />
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="flex justify-end space-x-3 mb-2">
-                <a href="{{ route('user.profile') }}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Cancel
-                </a>
-                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Save Changes
-                </button>
+            <div class="flex mx-auto justify-between">
+                <div class="mx-8">
+                    <a href="{{ route("profile.changepass") }}" class="inline-flex justify-center py-2 px-4 border border-gray-400 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-green-300 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Change Password</a>
+                    <a href="{{ route('profile.delete') }}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Delete Account</a>
+                </div>
+                <div class="flex justify-end space-x-3 mb-2 mx-8">
+                    <a href="{{ route('user.profile') }}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Cancel
+                    </a>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Save Changes
+                    </button>
+                </div>
             </div>
         </form>
     </div>

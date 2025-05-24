@@ -20,7 +20,9 @@ class JobList extends Component
     public $perPage = 8;
     public $selectedTagId = null;
     public $selectedCompanyId = null;
-
+    public $isAgentPage;
+    public $i = 1;
+    public $currentUrl = "";
     protected $paginationTheme = 'tailwind';
 
     protected $listeners = [
@@ -55,6 +57,11 @@ class JobList extends Component
         $this->resetPage();
     }
 
+    public function mount($isAgentPage = false)
+    {
+        $this->isAgentPage = $isAgentPage;
+        $this->currentUrl = url()->current();
+    }
     public function getJobs()
     {
         $query = Job::with(['tag', 'user.company']);
@@ -82,12 +89,16 @@ class JobList extends Component
             $userIds = User::where('company_id', $this->selectedCompanyId)->pluck('id');
             $query->whereIn('user_id', $userIds);
         }
+
+        $query->orderBy('created_at', 'desc');
+
         return $query->paginate($this->perPage);
     }
 
     public function render()
     {
         $jobs = $this->getJobs();
-        return view('livewire.job-list', compact('jobs'));
+        $currentUrl = $this->currentUrl;
+        return view('livewire.job-list', compact('jobs', 'currentUrl'));
     }
 }

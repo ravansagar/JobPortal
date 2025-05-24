@@ -14,6 +14,7 @@ class Navbar extends Component
         $this->navLinks = [
             ['name' => 'Home', 'url' => '/', 'active' => request()->is('/')],
             ['name' => 'MyJobs', 'url' => '/myjobs', 'active' => request()->is('myjobs')],
+            ['name' => 'Applied Jobs', 'url' => route('user.profile', ['id' => auth()->id(), 'tab' => 'a']), 'active' => request()->routeIs('user.profile') && request()->query('tab') === 'a'],
             ['name' => 'Admin Dashboard', 'url' => '/admin', 'active' => request()->is('admin')],
             ['name' => 'Vacancy', 'url' => '/vacancy', 'active' => request()->is('vacancy')],
         ];

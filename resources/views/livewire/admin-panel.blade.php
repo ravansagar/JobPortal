@@ -1,5 +1,5 @@
 <div class="w-[100vw] flex overflow-hidden">
-    <div class="w-60 h-[90vh] bg-white border-r border-gray-200 p-4 flex flex-col justify-between text-sm font-semibold text-gray-800">
+    <div class="w-60 min-h-[91vh] bg-white border-r border-gray-200 p-4 flex flex-col justify-between text-sm font-semibold text-gray-800">
         <div>
             <nav class="space-y-1">
                 <button wire:click="allJobs"

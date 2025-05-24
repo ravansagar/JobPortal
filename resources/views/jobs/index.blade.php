@@ -1,8 +1,8 @@
 <x-layouts.app>
     <div class="text-right my-2 mx-4">
         <a href="{{route('jobs.create')}}"
-            class="mx-4 text-green px-4 py-2 bg-green-500 rounded-md hover:bg-white/30 hover:ring-2 hover:ring-green-500">&plus;
-            Craete Job</a>
+            class="mx-4 text-green px-4 py-2 bg-green-500 text-white rounded-md  over:ring-2 hover:ring-green-500">&plus;
+            Create  Job</a>
     </div>
     <div class="w-[80vw] flex mx-auto justify-center">
         @if (session()->has('success'))

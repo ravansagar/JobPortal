@@ -1,7 +1,7 @@
 <div class="bg-gray-200 w-[100vw] p-2">
     <div class="flex justify-between items-center">
 
-        <div class="w-1/4 flex justify-center border-white">
+        <div class="w-1/4 flex ml-15  justify-start">
             <a href="/" class="text-white font-bold text-xl">
                 <svg height="50px" width="60px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 392.663 392.663" xml:space="preserve">
@@ -41,6 +41,14 @@
 
         <div class="w-1/2 flex justify-center space-x-4 text-gray-800">
             @foreach($navLinks as $link)
+                @if(Auth::user()?->role == 'user')
+                    @if($link['name'] === 'Applied Jobs')
+                        <a href="{{ $link['url'] }}"
+                            class="text-xl font-bold px-4 {{ $link['active'] ? 'border-b-2 border-blue-500' : '' }}">
+                            {{ $link['name'] }}
+                        </a>
+                    @endif
+                @endif
                 @if(Auth::user()?->role == 'agent')
                     @if($link['name'] === 'MyJobs')
                         <a href="{{ $link['url'] }}"
@@ -49,6 +57,7 @@
                         </a>
                     @endif
                 @endif
+
                 @if(Auth::user()?->role == 'admin')
                     @if($link['name'] === 'Admin Dashboard')
                         <a href="{{ $link['url'] }}"
@@ -57,7 +66,7 @@
                         </a>
                     @endif
                 @endif
-                @if($link['name'] != 'MyJobs' && $link['name'] != 'Admin Dashboard')
+                @if($link['name'] != 'MyJobs' && $link['name'] != 'Admin Dashboard' && $link['name'] != 'Applied Jobs')
                     <a href="{{ $link['url'] }}"
                         class="text-xl font-bold px-4 {{ $link['active'] ? 'border-b-2 border-blue-500' : '' }}">
                         {{ $link['name'] }}
@@ -65,22 +74,20 @@
                 @endif
             @endforeach
         </div>
-
-        <div class="w-1/4 flex justify-center">
+        
+        <div class="w-1/4 mx-auto flex justify-end mr-6">
             @guest
+                @livewire('search-bar')
                 @foreach ($startUp as $link)
                     <a href="{{ $link['url'] }}"
-                        class="text-l font-medium  border border-black/80 rounded px-4 mx-4 py-1 hover:text-white hover:bg-gray-900">
+                        class="text-l font-medium  rounded px-4 mx-4 py-1 hover:text-white ring ring-blue-500 hover:bg-blue-500">
                         {{ $link['name'] }}
                     </a>
                 @endforeach
-                @if(request()->routeIs('home'))
-                    @livewire('search-bar')
-                @endif
             @endguest
             @auth
             <div class="flex items-center justify-end space-x-4 w-full relative z-1000 pr-8">
-                    @if(request()->routeIs('home'))
+                    @if(request()->routeIs('home') && (Auth()->user() != null))
                         @livewire('search-bar')
                     @endif
                     @livewire('profile-dropdown')

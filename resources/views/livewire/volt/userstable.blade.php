@@ -7,6 +7,8 @@ use Livewire\Volt\Component;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
+use App\Models\ApplyJob;
+use Illuminate\Support\HtmlString;
 
 
 
@@ -16,6 +18,10 @@ new class extends Component {
     public ?int $quantity = 10;
 
     public ?string $search = "";
+
+    public function mount(){
+        $this->resetPage();
+    }
 
     public function changeQuantity($value)
     {
@@ -34,6 +40,21 @@ new class extends Component {
         'direction' => 'asc',
     ];
 
+    protected function getActionButtons($user): string
+    {
+        $viewRoute = route('user.profile', ['id' => $user->id]);
+        return sprintf('
+            <div class="flex justify-start space-x-1">
+                <a href="%s" 
+                class="p-1 text-blue-600 hover:text-blue-900 rounded-full hover:bg-blue-50">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                </a>
+            </div>', $viewRoute);
+    }
+
     public function with(): array
     {
         $users = User::query()
@@ -51,13 +72,16 @@ new class extends Component {
                 ['index' => 'name', 'label' => 'Full Name'],
                 ['index' => 'email', 'label' => 'Email'],
                 ['index' => 'application', 'label' => 'Total Application'],
+                ['index' => 'actions', 'label' => 'Actions', 'sortable' => false, 'html' => true]
             ],
             'rows' => $users->through(function ($user) {
                 return [
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
-                    'jobs' => Job::where('user_id', $user->id)->count(),
+                    'application' => ApplyJob::where('user_id', $user->id)->count(),
+                    'actions' => new HtmlString($this->getActionButtons($user))
+
                 ];
             }),
         ];

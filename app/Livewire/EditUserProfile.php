@@ -20,7 +20,7 @@ class EditUserProfile extends Component
     #[Validate('required|email')]
     public $email;
 
-    #[Validate('required|number|min:10')]
+    #[Validate('required|integer|min:10')]
     public $phone;
 
     #[Validate('required|min:3|string')]
@@ -44,26 +44,28 @@ class EditUserProfile extends Component
     
     public function save()
     {   
+        $photoPath = "";
         if ($this->profilePhoto) {
 
             if ($this->user->profile_photo) {
                 Storage::delete($this->user->profile_photo);
             }
-            
-            $photoPath = $this->profilePhoto->store('user/photos', 'public');
-            $this->user->profile_photo = $photoPath;
+            $imageName = time() . '_' . $this->profilePhoto->getClientOriginalName();
+
+            $this->profilePhoto->storeAs('images/user/', $imageName, 'public');
+            $photoPath = 'storage/images/user/'.$imageName;
         }
         
         $this->user->name = $this->name;
         $this->user->email = $this->email;
         $this->user->phone = $this->phone;
         $this->user->location = $this->location;
-        
+        $this->user->image = $photoPath;
         $this->user->save();
         
         session()->flash('message', 'Profile updated successfully!');
         
-        return redirect()->route('profile');
+        return redirect()->route('user.profile');
     }
     
     public function render()

@@ -32,7 +32,6 @@ class CreateJob extends Component
 
     public function store()
     {
-        dump($this->all());
         $status = false;
         $this->validate([
             'name' => ['required', 'min:3'],

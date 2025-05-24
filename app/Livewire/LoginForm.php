@@ -17,10 +17,16 @@ class LoginForm extends Component
         ]);
 
         if(Auth::attempt(['email' => $this->email, 'password' => $this->password])){
-            if(Auth::user()->company_id == '')
+
+            if((Auth::user()->role == 'user') && (Auth::user()->phone == ''))
+                return redirect()->intended(route("user.profile"));
+
+            elseif((Auth::user()->role == 'agent') && (Auth::user()->company_id == ''))
                 return redirect()->intended(route("profile"));
-            else 
+
+            else
                 return redirect()->intended(route("home"));
+            
         }
         session()->flash("error","Invalid Credentials");
     }

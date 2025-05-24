@@ -42,10 +42,7 @@
                 <div class="flex flex-col-reverse gap-1">
                     <dt class="text-base text-gray-300">Companies</dt>
                     <dd class="text-xl font-semibold tracking-tight text-white">
-                        {{-- <button wire:click="$set('showCompany', true)" class="cursor-pointer">{{ $companies
-                            }}+</button> --}}
-                        {{-- <button wire:click="{{ $showCompany ? " hideCompany" : "showCompany" }}"
-                            class="cursor-pointer">{{$companies }}</button> --}}
+
                         <button type="button" wire:click="showCompanyList"
                             class="cursor-pointer">{{ $companies }}+</button>
 

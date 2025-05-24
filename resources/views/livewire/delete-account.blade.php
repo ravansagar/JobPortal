@@ -19,7 +19,7 @@
         </div>
 
         <div class="mx-auto flex justify-between ">
-            <a href="{{ route("profile") }}" class="font-semibold text-xl bg-green-500 
+            <a href="{{ url()->previous() }}" class="font-semibold text-xl bg-green-500 
                 text-white px-4 py-2 rounded-lg  border-2 border-transparent
                 hover:bg-white hover:text-black hover:border-green-500
                 transition-all duration-300 ease-in-out mr-8">Cancel</a>

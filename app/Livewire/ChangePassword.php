@@ -23,7 +23,7 @@ class ChangePassword extends Component
             'password' => Hash::make($this->password),
         ]);
         
-        return redirect()->intended(route('profile'));
+        return redirect()->intended(url()->previous());
     }
     public function render()
     {

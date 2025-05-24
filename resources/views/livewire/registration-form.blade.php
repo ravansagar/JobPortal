@@ -40,11 +40,11 @@
             </x-form.input-field>
 
             <button type="submit" wire:click.prevent="setRoleAndRegister('user')"
-                class="w-full py-2 bg-black/30 text-purple-700 font-semibold rounded-md hover:bg-gray-100 transition-all">
+                class="w-full py-2 bg-green-400 text-white font-semibold rounded-md hover:bg-green-500 transition-all">
                 Register
             </button>
             <button type="submit" wire:click.prevent="setRoleAndRegister('agent')"
-                class="w-full cursor-pointer text-blue-500 font-semibold flex justify-center my-2 py-2 rounded-md hover:bg-blue-500 hover:text-white/80">
+                class="w-full cursor-pointer text-blue-500 font-semibold flex justify-center my-2 py-2 rounded-md hover:bg-green-500 hover:text-white">
             Register as Agent
             </button>
         </form>

@@ -9,6 +9,7 @@ use Livewire\Attributes\On;
 use Illuminate\Support\HtmlString;
 
 new class extends Component {
+
     use WithPagination;
 
     public ?int $quantity = 10;
@@ -20,7 +21,7 @@ new class extends Component {
         $this->dispatch('confirmModal', $jobId);
     }
 
-    #[On('updateSearch')]
+    #[On(event: 'updateSearch')]
     public function updateSearch($char)
     {
         $this->search = $char;
@@ -39,7 +40,7 @@ new class extends Component {
 
 
         return sprintf('
-            <div class="flex justify-end space-x-1 px-8">
+            <div class="flex justify-start space-x-1">
                 <a href="%s" 
                 class="p-1 text-blue-600 hover:text-blue-900 rounded-full hover:bg-blue-50">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -67,9 +68,12 @@ new class extends Component {
         $this->quantity = (int) $value;
         $this->resetPage();
     }
-
+    public function mount(){
+        $this->resetPage();
+    }
     public function with(): array
     {
+        
         $jobs = Job::query()
             ->with('user')
             ->with('company')

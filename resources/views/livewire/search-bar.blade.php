@@ -16,14 +16,11 @@
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0 scale-95"
         x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
         wire:model.live.debounce.300ms="search"
         wire:input="performSearch"
         type="text"
         placeholder="Search..."
-        class="mr-[7rem] px-4 py-2 text-white bg-gray-800 rounded-md -mt-4 w-48 focus:outline-none absolute"
+        class="w-[15vw] mr-[7rem] px-4 py-2 text-white bg-gray-800 rounded-md  w-48 focus:outline-none absolute  @auth -mt-4 -ml-4 @endauth "
         @keydown.escape.window="open = false"
         autofocus
     >

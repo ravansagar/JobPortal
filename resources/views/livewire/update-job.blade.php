@@ -10,8 +10,8 @@
 
         <div class="z-10 bg-white/10 backdrop-blur-md text-gray-800 rounded-xl shadow-2xl p-8 w-[400px]">
             <div class="flex mx-auto justify-between">
-                <a href="{{ route('myjobs.index') }}"
-                    class="text-2xl border border-black rounded-full mb-6 -mt-1 px-2 hover:outline-green hover:bg-green-500">&larr;</a>
+                <a href="{{ redirect()->back()->getTargetUrl() }}"
+                    class="text-2xl ring ring-green-500 rounded-full mb-6 -mt-1 px-2 hover:text-white hover:outline-green hover:bg-green-500">&larr;</a>
                 <h2 class="text-2xl font-bold mb-6 text-center">Update Job Information</h2>
                 <h2 class="w-[1/4] mr-4"></h2>
             </div>
@@ -50,7 +50,8 @@
                 </x-form.input-field>
 
                 <x-form.input-field name="salary" placeholder="Salary" class="!pl-12">
-                    <select wire:model="currency" class="top-1.5 bg-transparent text-gray-900 text-sm font-semibold focus:outline-none">
+                    <select wire:model="currency"
+                        class="top-1.5 bg-transparent text-gray-900 text-sm font-semibold focus:outline-none">
                         <option value="npr">&#8360;</option>
                         <option value="usd">&dollar;</option>
                         <option value="inr">&#8377;</option>
@@ -58,26 +59,64 @@
                     </select>
                 </x-form.input-field>
 
-                <div class="mb-4">
-                    <textarea wire:model="description" placeholder="Job Description"
-                        class="w-full px-3 py-2 bg-black/20 border border-black/30 rounded text-gray-800 placeholder-black/70 focus:outline-none focus:ring focus:ring-purple-300 resize-none"
-                        rows="4">{{ $description }}</textarea>
+                <div wire:ignore class="mb-4">
+                    <div class="main-container">
+                        <div id="editor">
+                            <textarea wire:model="description"></textarea>
+                        </div>
+                    </div>
+                    <script src="https://cdn.ckeditor.com/ckeditor5/45.1.0/ckeditor5.umd.js"></script>
+                    <script>
+                        const {
+                            ClassicEditor,
+                            Essentials,
+                            Bold,
+                            Italic,
+                            Font,
+                            Paragraph
+                        } = CKEDITOR;
+
+                        ClassicEditor
+                            .create(document.querySelector('#editor'), {
+                                licenseKey: "{{ config('services.ckeditor') }}",
+                                plugins: [Essentials, Bold, Italic, Font, Paragraph],
+                                toolbar: [
+                                    'undo', 'redo', '|', 'bold', 'italic', '|',
+                                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                                ]
+                            })
+                            .then(editor => {
+                                window.editor = editor;
+
+                                editor.setData(@js($description));
+
+                    editor.model.document.on('change:data', () => {
+                        Livewire.dispatch('setDescription', {
+                            value: editor.getData()
+                        });
+                    });
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    </script>
                     @error('description') <span class="text-red-300 text-sm">{{ $message }}</span> @enderror
                 </div>
-                
+
                 <div class="mb-4">
                     <label for="tag_id" class="block text-gray-800 mb-1">Select a Tag</label>
                     <div class="flex space-x-2">
                         <select wire:model="tag_id"
                             class="w-[65%] px-3 py-2 bg-black/20 border border-black/30 rounded text-gray-800 placeholder-black/70 focus:outline-none">
-                            <option value="{{ $tag_id ? $tag_id : '' }}" class="text-blue-500">{{ App\Models\Tag::find($tag_id)->name }}</option>
+                            <option value="{{ $tag_id ? $tag_id : '' }}" class="text-blue-500">
+                                {{ App\Models\Tag::find($tag_id)->name }}</option>
                             @foreach ($tags as $tag)
                                 <option value="{{ $tag->id }}" class="text-blue-500">{{ $tag->name }}</option>
                             @endforeach
                         </select>
 
                         <button type="button" wire:click="showConfirmModal"
-                            class="px-3 ml-2 py-2 bg-blue-500 text-gray-800 rounded hover:bg-blue-600">
+                            class="px-3 ml-2 py-2 bg-blue-400 text-white rounded hover:bg-blue-500">
                             &plus; Add Tag
                         </button>
                     </div>
@@ -85,9 +124,9 @@
                         <span class="text-red-300 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-             
+
                 <button type="submit"
-                    class="w-full py-2 px-2 flex justify-center bg-black/30 text-purple-700 font-semibold rounded-md hover:bg-gray-100 transition-all">
+                    class="w-full py-2 px-2 flex justify-center text-blue-500 ring-1 ring-blue-500  font-semibold rounded-md hover:bg-blue-500 hover:text-white transition-all">
                     Update Job
                 </button>
             </form>

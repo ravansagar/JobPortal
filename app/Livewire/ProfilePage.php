@@ -7,6 +7,8 @@ use App\Models\Job;
 use Livewire\WithFileUploads;
 use Auth;
 use App\Models\Company;
+use Illuminate\Support\Facades\URL;
+use App\Models\User;
 
 class ProfilePage extends Component
 {
@@ -14,6 +16,7 @@ class ProfilePage extends Component
 
     public  $image, $company_id, $name, $location, $logo;    
     
+    public $user;
     public function updatedImage()
     {
         $this->validate([
@@ -45,9 +48,26 @@ class ProfilePage extends Component
         return redirect()->intended(route('profile'));
     }
 
+    public function mount(){
+        $url = URL::previous();
+        $path = parse_url($url, PHP_URL_PATH);
+        if($path == '/admin'){
+            $this->route = $path;
+            $fullUrl = explode('?', url()->full());
+            $id = explode("=", $fullUrl[1])[0];
+            $this->user = User::findOrFail($id);
+            if(is_null($this->user)){
+                return abort(404, 'User Not Found');
+            }
+        } else {
+            $this->user = Auth::user();
+        }
+
+    }
+
     public function updateCompany($logo = null){
 
-        $company = Auth::user()->company;
+        $company = $this->user()->company;
 
         if(!$company){
             return;
@@ -80,8 +100,8 @@ class ProfilePage extends Component
 
     public function render()
     {
-        $numJobs = Job::where('user_id', Auth::user()->id)->count();
-        $companyImg = Auth::user()->company_id != '' ? Auth::user()->company->image : '';
-        return view('livewire.profile-page', compact(['numJobs', 'companyImg']));
+        $numJobs = Job::where('user_id', $this->user->id)->count();
+        $companyImg = $this->user->company_id != '' ? $this->user->company->image : '';
+        return view('livewire.profile-page',compact(['numJobs','companyImg']));
     }
 }

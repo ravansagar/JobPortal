@@ -62,7 +62,7 @@ class UpdateInformation extends Component
         }
 
         if (!is_null($this->logo) && $this->logo !== $user->company?->image) {
-
+            // dd('i am here');
             $this->validate([
                 'logo' => ['required', 'image', 'max:5120'],
             ]);
@@ -75,8 +75,6 @@ class UpdateInformation extends Component
 
         if (!empty($UserData)) {
             $result = Auth::user()->update($UserData);
-            // return redirect()->route('profile.edit')->with('success', 'Updated successfully.');
-
             $result ? session()->flash('success', 'Profile information updated successfully.') : 
                 session()->flash('error', 'Failed to update profile information.');
         }

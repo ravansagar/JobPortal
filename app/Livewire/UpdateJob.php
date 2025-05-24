@@ -9,6 +9,7 @@ use Livewire\Attributes\Layout;
 use App\Models\Job;
 use App\Models\Tag;
 use Auth;
+use Livewire\Attributes\On;
 
 #[Layout("components.layouts.base")]
 class UpdateJob extends Component
@@ -27,7 +28,6 @@ class UpdateJob extends Component
     {
         $this->tags = Tag::all();
         $this->tag_id = $tagId;
-        // $this->render();
     }
     public function showConfirmModal()
     {
@@ -98,7 +98,16 @@ class UpdateJob extends Component
         $this->tag_id = $this->job->tag_id;
         $this->tagName = $this->job->tag->name;
         $this->tags = Tag::all();
+        // dump($this->description);
+        $this->dispatch('descriptionUpdated', value: $this->description);
     }
+
+    #[On('setDescription')]
+    public function setDescription($value)
+    {
+        $this->description = $value; // ✅ receive changes from editor
+    }
+
     public function render()
     {
         return view('livewire.update-job');

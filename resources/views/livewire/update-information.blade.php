@@ -58,7 +58,7 @@
             <div class="w-48 h-32 relative rounded-full border-4 border-white shadow mb-6">
                 <img src="{{ $logo }}" alt="Company Logo" class="w-full h-full object-cover rounded-full">
 
-                <input type="file" wire:model="logo" wire:keydown.enter="updateData" wire:blur="updateData"
+                <input type="file" wire:model="logo" wire:keydown.enter="updateData" 
                     class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-20" />
                 
                 <div class="absolute bottom-1 right-1 bg-white p-1 rounded-full shadow z-10">

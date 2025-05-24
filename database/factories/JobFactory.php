@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Tag;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Job>
@@ -14,15 +15,22 @@ class JobFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    public $currency = [
+        'npr',
+        'inr',
+        'usd',
+        'euro'
+    ];
     public function definition(): array
     {
         return [
             'name' => fake()->jobTitle(),
-            'image' => fake()->image(),
-            'salary' => fake()->numberBetween(4000,5000),
+            'image' => 'https://unsplash.com/photos/a-laptop-computer-sitting-on-top-of-a-table-T0wC7aHAUUs',
+            'currency' => fake()->randomElement($this->currency),
+            'salary' => fake()->numberBetween(40000,50000),
             'description' => fake()->text(100),
-            'user_id' => fake()->numberBetween(1,10),
-            'tag_id' => fake()->numberBetween(1,10),
+            'user_id' => fake()->numberBetween(1,15),
+            'tag_id' => Tag::factory(),
         ];
     }
 }

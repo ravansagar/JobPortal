@@ -1,19 +1,15 @@
-<div>
-
+<div class="bg-gray-200 min-h-screen py-8">
     @if (session()->has('success'))
         <div x-data="{ show: true }"
-                x-init="setTimeout(() => { show = false; window.location.href='{{ route('home') }}' }, 3000)"
-                x-show="show" 
-                class="p-4 bg-green-100 text-green-800 rounded text-right">{{ session('success') }}</div>
+            x-init="setTimeout(() => { show = false; window.location.href='{{ route('home') }}' }, 2000)" x-show="show"
+            class="p-4 bg-green-100 text-green-800 rounded text-right">{{ session('success') }}</div>
     @endif
     @if (session()->has('error'))
-        <div x-data="{ show: true }"
-                x-init="setTimeout(() => { show = false; 2000)"
-                x-show="show"
-                class="p-4 bg-red-100 text-red-800 rounded text-right">{{ session('error') }}</div>
+        <div x-data="{ show: true }" x-init="setTimeout(() => { show = false; 2000)" x-show="show"
+            class="p-4 bg-red-100 text-red-800 rounded text-right">{{ session('error') }}</div>
     @endif
 
-    <div class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-2xl space-y-6 my-8 z-50">
+    <div class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-2xl space-y-6 z-50">
         <div class="flex mx-auto justify-between">
             <div>
                 <a href="{{route('home')}}" class="p-2 border border-black rounded-full">
@@ -28,7 +24,7 @@
         <form wire:submit.prevent="apply" class="space-y-4">
             <div>
                 <label class="block font-semibold">Full Name</label>
-                <x-form.input-field name="name">
+                <x-form.input-field name="name" readonly>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" />
@@ -39,7 +35,7 @@
 
             <div>
                 <label class="block font-semibold">Email</label>
-                <x-form.input-field name="email" type="email">
+                <x-form.input-field name="email" type="email" readonly>
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -58,16 +54,60 @@
                 </x-form.input-field>
             </div>
 
-            <div>
+            <div wire:ignore class="mb-4">
+                <label class="block font-semibold">Cover Letter</label>
+                <div class="main-container">
+                    <div id="editor">
+                        <textarea wire:model="coverLetter" class="bg-gray-200"></textarea>
+                    </div>
+                </div>
+                <script src="https://cdn.ckeditor.com/ckeditor5/45.1.0/ckeditor5.umd.js"></script>
+                <script>
+                    const {
+                        ClassicEditor,
+                        Essentials,
+                        Bold,
+                        Italic,
+                        Font,
+                        Paragraph
+                    } = CKEDITOR;
+
+                    ClassicEditor
+                        .create(document.querySelector('#editor'), {
+                            licenseKey: "{{ config('services.ckeditor') }}",
+                            plugins: [Essentials, Bold, Italic, Font, Paragraph],
+                            toolbar: [
+                                'undo', 'redo', '|', 'bold', 'italic', '|',
+                                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                            ]
+                        })
+                        .then(editor => {
+                            window.editor = editor;
+
+                            editor.model.document.on('change:data', () => {
+                                @this.set('coverLetter', editor.getData());
+                            });
+
+                            Livewire.on('coverLetterUpdated', (value) => {
+                                editor.setData(value);
+                            });
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                </script>
+                @error('coverLetter') <span class="text-red-300 text-sm">{{ $message }}</span> @enderror
+            </div>  
+            {{-- <div>
                 <label class="block font-semibold">Cover Letter</label>
                 <textarea name="coverLetter" rows="5"
                     class="w-full mt-1 p-2 rounded-md bg-black/20 focus:outline-none border-none focus:ring-2 focus:ring-purple-300"></textarea>
                 @error('coverLetter') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            </div>
+            </div> --}}
 
             <div class="flex justify-end">
                 <button type="submit"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-xl">
+                    class="bg-blue-600 hover:bg-blue-700 items-center  text-white font-semibold py-2 px-6 rounded-xl">
                     Apply Now
                 </button>
             </div>

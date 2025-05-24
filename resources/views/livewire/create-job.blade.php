@@ -1,4 +1,10 @@
 <div>
+    @if((Auth::user()->role == 'agent') && (Auth::user()?->company?->name == ''))
+        @php
+            session()->flash('success', 'Please provide company information before posting job.');
+            redirect()->intended(route('profile.edit'));
+        @endphp
+    @endif
     <div class="w-[100vw]">
         <div class="min-h-screen bg-gradient-to-b flex items-center justify-center relative overflow-hidden">
 
@@ -12,7 +18,7 @@
                 <form wire:submit.prevent="store">
                     <div class="flex mx-auto justify-between">
                         <a href="{{ route('myjobs.index') }}"
-                            class="text-2xl border border-black/30 rounded-full mb-6 -mt-1 px-2 hover:outline-green hover:bg-green-500">&larr;</a>
+                            class="text-2xl ring ring-green-500 rounded-full mb-6 -mt-1 px-2 hover:text-white hover:outline-green hover:bg-green-500">&larr;</a>
                         <h2 class="text-2xl font-bold mb-6 text-center">Post a New Job</h2>
                         <h2 class="w-[1/4] mr-4"></h2>
                     </div>
@@ -42,11 +48,11 @@
                         </div> --}}
                         <div class="relative h-[125px] w-[125px] mb-2">
                             @if ($image == null)
-                            <img src="" alt="Choose an Image"
-                                class="h-full w-full rounded-full object-cover ring-2 ring-black/70">
+                                <img src="" alt="Choose an Image"
+                                    class="h-full w-full rounded-full object-cover ring-2 ring-black/70">
                             @else
-                            <img src="{{ $image->temporaryUrl() }}" alt="Image Preview"
-                                class="h-full w-full rounded-full object-cover ring-2 ring-white/40">
+                                <img src="{{ $image->temporaryUrl() }}" alt="Image Preview"
+                                    class="h-full w-full rounded-full object-cover ring-2 ring-white/40">
                             @endif
 
                             <input type="file" wire:model.debounce.2000ms="image"
@@ -93,10 +99,47 @@
                         </select>
                     </x-form.input-field>
 
-                    <div class="mb-4">
-                        <textarea wire:model.defer="description" placeholder="Job Description"
-                            class="w-full px-3 py-2 bg-black/20 border border-black/30 rounded text-gray-800 placeholder-white/70 focus:outline-none focus:ring focus:ring-purple-300 resize-none"
-                            rows="4"></textarea>
+                    <div wire:ignore class="mb-4">
+                        <div class="main-container">
+                            <div id="editor">
+                                <textarea wire:model="description"></textarea>
+                            </div>
+                        </div>
+                        <script src="https://cdn.ckeditor.com/ckeditor5/45.1.0/ckeditor5.umd.js"></script>
+                        <script>
+                            const {
+                                ClassicEditor,
+                                Essentials,
+                                Bold,
+                                Italic,
+                                Font,
+                                Paragraph
+                            } = CKEDITOR;
+
+                            ClassicEditor
+                                .create(document.querySelector('#editor'), {
+                                    licenseKey: "{{ config('services.ckeditor') }}",
+                                    plugins: [Essentials, Bold, Italic, Font, Paragraph],
+                                    toolbar: [
+                                        'undo', 'redo', '|', 'bold', 'italic', '|',
+                                        'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+                                    ]
+                                })
+                                .then(editor => {
+                                    window.editor = editor;
+                                    
+                                    editor.model.document.on('change:data', () => {
+                                        @this.set('description', editor.getData());
+                                    });
+
+                                    Livewire.on('descriptionUpdated', (value) => {
+                                        editor.setData(value);
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        </script>
                         @error('description') <span class="text-red-300 text-sm">{{ $message }}</span> @enderror
                     </div>
 

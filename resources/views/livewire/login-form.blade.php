@@ -29,11 +29,11 @@
                     <input type="checkbox" class="form-checkbox text-gray-800 bg-purple-700 border-none">
                     <span class="ml-2 text-gray-800">Remember me</span>
                 </label>
-                <a href="#" class="text-purple-500 hover:underline">Forgot password?</a>
+                <a class="text-purple-500 hover:underline">Forgot password?</a>
             </div>
 
             <button type="submit"
-                class="w-full py-2 bg-black/30 text-purple-700 font-semibold rounded-md hover:bg-gray-100 transition-all">
+                class="w-full py-2 bg-green-400 text-white font-semibold rounded-md hover:bg-green-500 transition-all">
                 Login
             </button>
         </form>
