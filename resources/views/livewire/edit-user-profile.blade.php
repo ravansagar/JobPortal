@@ -96,9 +96,9 @@
             </div>
             <div class="flex mx-auto justify-between">
                 <div class="mx-8">
-                    <a href="{{ route("profile.changepass") }}" class="inline-flex justify-center py-2 px-4 border border-gray-400 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-green-300 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <a href="{{ route("profile.changepass") }}" class="inline-flex justify-center py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-green-400 hover:bg-green-500 focus:outline-none">
                         Change Password</a>
-                    <a href="{{ route('profile.delete') }}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <a href="{{ route('profile.delete') }}" class="inline-flex justify-center py-2 px-4 shadow-sm text-sm font-medium rounded-md text-white bg-red-400 hover:bg-red-500">
                     Delete Account</a>
                 </div>
                 <div class="flex justify-end space-x-3 mb-2 mx-8">

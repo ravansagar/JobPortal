@@ -15,7 +15,7 @@ class Navbar extends Component
             ['name' => 'Home', 'url' => '/', 'active' => request()->is('/')],
             ['name' => 'MyJobs', 'url' => '/myjobs', 'active' => request()->is('myjobs')],
             ['name' => 'Applied Jobs', 'url' => route('user.profile', ['id' => auth()->id(), 'tab' => 'a']), 'active' => request()->routeIs('user.profile') && request()->query('tab') === 'a'],
-            ['name' => 'Admin Dashboard', 'url' => '/admin', 'active' => request()->is('admin')],
+            ['name' => 'Admin Dashboard', 'url' => '/admin-2003-december', 'active' => request()->is(['admin-2003-december', 'admin-2003-december/*'])],
             ['name' => 'Vacancy', 'url' => '/vacancy', 'active' => request()->is('vacancy')],
         ];
 
@@ -23,14 +23,6 @@ class Navbar extends Component
             ['name' => 'Login', 'url' => '/login', 'active' => request()->is('login')],
             ['name' => 'Register', 'url' => '/register', 'active' => request()->is('register')],
         ];
-
-        // Add login/logout based on authentication
-        // if (Auth::check()) {
-        //     $this->navLinks[] = ['name' => 'Logout', 'url' => '/logout', 'active' => request()->is('logout')];
-        // } else {
-        //     $this->navLinks[] = ['name' => 'Login', 'url' => '/login', 'active' => request()->is('login')];
-        //     $this->navLinks[] = ['name' => 'Register', 'url' => '/register', 'active' => request()->is('register')];
-        // }
     }
     public function render()
     {

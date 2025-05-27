@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Auth;
 
+#[Title("Login")]
 class LoginForm extends Component
 {
     public $email;

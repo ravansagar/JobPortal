@@ -4,7 +4,7 @@
             <div class="bg-gray-100 text-white rounded-lg p-6 w-full max-w-md shadow-lg text-center">
                 <h2 class="text-xl font-bold mb-2 text-gray-800">Add New Tag</h2>
                 <form wire:submit.prevent="addTag" class="flex flex-col space-y-4">
-                    <x-form.input-field class="border-white/30 !placeholder-white !text-white" wire:model="name"
+                    <x-form.input-field  wire:model="name"
                         placeholder="Tag Name" />
 
                     @error('name')

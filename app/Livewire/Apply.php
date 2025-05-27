@@ -3,13 +3,14 @@
 namespace App\Livewire;
 
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Job;
 use App\Models\ApplyJob;
 use Auth;
 
-
+#[Title("Apply")]
 #[Layout("components.layouts.base")]
 class Apply extends Component
 {

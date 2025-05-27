@@ -6,10 +6,11 @@ use App\Models\Tag;
 use Livewire\Attributes\Layout;
 use App\Models\Job;
 use Auth;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-
+#[Title("Create Job")]
 #[Layout("components.layouts.base")]
 class CreateJob extends Component
 {

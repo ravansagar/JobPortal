@@ -4,9 +4,11 @@ namespace App\Livewire;
 
 use Auth;
 use Hash;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Illuminate\Validation\Rules\Password;
 
+#[Title("Change Password")]
 class ChangePassword extends Component
 {
     public $password, $current_password, $password_confirmation;

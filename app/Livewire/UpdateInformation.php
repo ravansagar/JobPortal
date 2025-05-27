@@ -3,11 +3,12 @@
 namespace App\Livewire;
 
 use Auth;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Layout;
 
-
+#[Title("Update Profile")]
 #[Layout("components.layouts.app")]
 class UpdateInformation extends Component
 {
@@ -62,7 +63,6 @@ class UpdateInformation extends Component
         }
 
         if (!is_null($this->logo) && $this->logo !== $user->company?->image) {
-            // dd('i am here');
             $this->validate([
                 'logo' => ['required', 'image', 'max:5120'],
             ]);

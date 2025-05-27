@@ -11,12 +11,12 @@ use Illuminate\Support\HtmlString;
 new class extends Component {
     use WithPagination;
 
-    public ?int $quantity = 10; 
+    public ?int $quantity = 10;
     public ?string $search = "";
     public ?int $editingId = null;
     public string $editingName = '';
 
-    public array $sort = [ 
+    public array $sort = [
         'column' => 'id',
         'direction' => 'asc',
     ];
@@ -28,11 +28,13 @@ new class extends Component {
     }
 
     #[On('updateSearch')]
-    public function updateSearch($char){
+    public function updateSearch($char)
+    {
         $this->search = $char;
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         $tag = Tag::findOrFail($id);
         $tag->delete();
         $this->reset();
@@ -63,6 +65,11 @@ new class extends Component {
         $this->editingName = '';
     }
 
+    public function showConfirmModal()
+    {
+        $this->dispatch( 'confirmModal');
+    }
+
     protected function getActionButtons($tag): string
     {
         return sprintf('
@@ -83,7 +90,8 @@ new class extends Component {
             </div>', $tag->id, addslashes($tag->name), $tag->id);
     }
 
-    public function mount(){
+    public function mount()
+    {
         $this->resetPage();
     }
 
@@ -107,7 +115,7 @@ new class extends Component {
             'rows' => $tags->through(function ($tag) {
                 return [
                     'id' => $tag->id,
-                    'name' => $this->editingId === $tag->id 
+                    'name' => $this->editingId === $tag->id
                         ? new HtmlString('
                             <div class="flex items-center space-x-2">
                                 <input wire:model="editingName" 
@@ -132,11 +140,11 @@ new class extends Component {
                 ];
             }),
         ];
-    } 
+    }
 };
 ?>
 <div class="justify-center px-4">
-    
+
     <div class="flex justify-between items-center mb-4">
         <div>
             <label for="quantity" class="mr-2">Items per page:</label>
@@ -146,8 +154,14 @@ new class extends Component {
                 <option value="15">15</option>
             </select>
         </div>
+        <div class="flex mx-1">
+            <button type="button" wire:click="showConfirmModal"
+                class="p-1 px-2 bg-green-400 hover:bg-green-500 text-white rounded-md">
+                &plus; Add Tag
+            </button>
+        </div>
     </div>
 
-    <x-table :$headers :$rows :$sort striped loading paginate persistent  />
-
+    <x-table :$headers :$rows :$sort striped loading paginate persistent />
+    @livewire('add-tag')
 </div>

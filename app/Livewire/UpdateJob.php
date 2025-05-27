@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Layout;
@@ -11,6 +12,7 @@ use App\Models\Tag;
 use Auth;
 use Livewire\Attributes\On;
 
+#[Title("Update Job")]
 #[Layout("components.layouts.base")]
 class UpdateJob extends Component
 {

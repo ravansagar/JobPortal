@@ -1,11 +1,16 @@
 @props(['name' => '', 'type' => 'text', 'placeholder' => ''])
 
+@php
+    $hasSlot = trim((string) $slot) !== '';
+    $class = 'w-full ' . ($hasSlot ? 'px-10' : 'px-4') . ' py-2 rounded-md bg-white/70 ring-1 ring-gray-400 placeholder-black text-black focus:outline-none focus:ring-2 focus:ring-purple-300';
+@endphp
+
 <div class="mb-4 relative">
     <input 
         @if($name !== '') wire:model="{{ $name }}" @endif
         type="{{ $type }}"  
         placeholder="{{ $placeholder }}"
-        {{ $attributes->merge(['class' => 'w-full px-10 py-2 rounded-md bg-white/70 ring-1 ring-gray-4  00 placeholder-black text-black focus:outline-none focus:ring-2 focus:ring-purple-300']) }} 
+        {{ $attributes->merge(['class' => $class]) }} 
         required
     />
 

@@ -36,12 +36,12 @@
             <div class="w-full flex pt-6 py-2 pb-2 px-4 justify-between mx-auto">
                 @if(!str_contains($currentUrl,'myjobs'))
                     <a href="{{ route('jobs.view', $job->id) }}" title="view"
-                        class="bg-green-400 mx-2 text-white px-3 py-1 rounded-md text-center text-[10px] hover:bg-green-500 hover:text-white">
+                        class="bg-green-400 mx-2 text-white font-semibold px-4 py-2 rounded-md text-center text-[12px] hover:bg-green-500 hover:text-white">
                         <i class="fa fa-eye"></i> View
                     </a>
                     @if(Auth::user()?->role === 'user')
                         <a href="{{ route('jobs-apply', $job->id) }}" title="apply"
-                            class="bg-blue-400 text-white px-3 py-1 rounded-md text-center text-[10px] hover:bg-blue-500 hover:border-blue-500">
+                            class="bg-blue-400 text-white font-semibold px-4 py-2 rounded-md text-center text-[12px] hover:bg-blue-500 hover:border-blue-500">
                             <i class="fa fa-pencil-square-o" ></i> Apply
                         </a>
                     @endif

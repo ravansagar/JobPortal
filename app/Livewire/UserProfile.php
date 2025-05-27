@@ -5,9 +5,11 @@ namespace App\Livewire;
 use App\Models\ApplyJob;
 use App\Models\User;
 use Auth;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Illuminate\Support\Facades\URL;
 
+#[Title("Profile")]
 class UserProfile extends Component
 {
     public $user;

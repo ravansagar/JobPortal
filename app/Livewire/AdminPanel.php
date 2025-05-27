@@ -5,6 +5,7 @@
  */
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 
@@ -13,15 +14,17 @@ use App\Models\Job;
 use App\Models\Tag;
 use App\Models\Company;
 
+#[Title("Admin Panel")]
 #[Layout("components.layouts.app")]
 class AdminPanel extends Component
 {
     public $tags, $jobs, $users, $companies;
-    public $showJobs = true;
+    public $showJobs = false;
     public $showComp = false;
     public $showTags = false;
     public $showUsers = false;
     public $showAgents = false;
+    public $tab;
 
     public $search = "";
 
@@ -77,8 +80,19 @@ class AdminPanel extends Component
         $this->showTags = true;
     }
 
-    public function mount()  {
-        
+    public function mount($tab = null)  {
+        $this->tab = $tab;
+        if($tab == 'jobs'){
+            $this->allJobs();
+        } elseif($tab == 'companies') {
+            $this->allComp();
+        } elseif($tab == 'tags') {
+            $this->allTags();
+        } elseif($tab == 'users') {
+            $this->allUsers();
+        } elseif($tab == 'agents') {
+            $this->allAgents();
+        }
     }
     public function render()
     {

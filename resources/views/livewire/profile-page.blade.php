@@ -1,19 +1,19 @@
 <div class="min-h-[91vh] w-[100vw] bg-white/40 p-6 -mb-4">
     <div class="bg-white shadow-lg rounded-2xl p-6 max-w-5xl mx-auto">
 
-            <h2 class="text-2xl font-semibold mb-1">Welcome, {{  Auth::user()->name }} </h2>
-        
+        <h2 class="text-2xl font-semibold mb-1">Welcome, {{  Auth::user()->name }} </h2>
+
         <p class="text-gray-500 mb-6">{{ now()->format('D, d F Y') }}</p>
         <div class="flex mx-auto justify-between">
             <div class="w-[3/4] flex items-center space-x-4 mb-2">
                 @if($user->image == '')
-                    <div>
-                        <input type="file" wire:model="image" class="w-32 h-32 rounded-full border-4 border-white shadow" />
-                        @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    <div
+                        class="h-32 w-32 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-5xl font-bold">
+                        {{ substr(Auth::user()->name, 0, 1) }}
                     </div>
                 @else
                     <img src="{{ $user->image }}" class="w-32 h-32 rounded-full border-4 border-white shadow"
-                        alt="Profile Photo">
+                        alt="Profile Photo" />
                 @endif
                 <div>
                     <h3 class="text-xl font-bold">{{ $user->name }}</h3>
@@ -22,8 +22,12 @@
             </div>
             @if(Auth::user()->role == 'agent')
                 <div class="w-[1/4] grid grid-cols-1 px-8 py-4 text-l font-semibold text-white">
-                    <a href="{{ route('profile.edit') }}" class="border bg-green-500 my-4 px-2 py-2 rounded-full pt-2 text-center hover:bg-white hover:text-black transition duration-300 ease-in-out">Edit Information</a>
-                    <a href="{{ route('profile.delete') }}" class="border bg-red-500 px-2 py-2 rounded-full pt-2 text-center hover:bg-white hover:text-black transition duration-300 ease-in-out">Delete Account</a>
+                    <a href="{{ route('profile.edit') }}"
+                        class="border bg-green-500 my-4 px-2 py-2 rounded-full pt-2 text-center hover:bg-white hover:text-black transition duration-300 ease-in-out">Edit
+                        Information</a>
+                    <a href="{{ route('profile.delete') }}"
+                        class="border bg-red-500 px-2 py-2 rounded-full pt-2 text-center hover:bg-white hover:text-black transition duration-300 ease-in-out">Delete
+                        Account</a>
                 </div>
             @endif
         </div>
@@ -47,18 +51,19 @@
                     </div>
                     <div>
                         <h2 class="text-l font-semibold text-gray-900">Company Location</h2>
-                        <h2 class="px-2 py-2 text-l font-bold text-gray-500">{{ $user->company?->location ?? 'N/A' }}</h2>
+                        <h2 class="px-2 py-2 text-l font-bold text-gray-500">{{ $user->company?->location ?? 'N/A' }}
+                        </h2>
                     </div>
 
-                   <div>
+                    <div>
                         <h2 class="text-l font-semibold text-gray-900">Jobs Created</h2>
                         <h2 class="px-2 py-2 text-l font-bold text-gray-500">{{ $numJobs }}</h2>
                     </div>
                 </div>
 
                 <div class="w-[40%] h-auto flex items-center justify-center">
-                        <img src="{{ $user->company?->image }}"
-                            class="h-[60%] w-[60%]  rounded-sm border-4 border-purple-500 shadow" alt="Company Logo" />
+                    <img src="{{ $user->company?->image }}"
+                        class="h-[60%] w-[60%]  rounded-sm border-4 border-purple-500 shadow" alt="Company Logo" />
                 </div>
             </div>
 

@@ -91,7 +91,7 @@ new class extends Component {
             ['index' => 'salary', 'label' => 'Salary', 'sortable' => false],
             ['index' => 'posted_by', 'label' => 'Posted By'],
             ['index' => 'company', 'label' => 'Company'],
-            ['index' => 'application', 'label' => 'Total Applications'],
+            ['index' => 'application', 'label' => 'Total Applications', 'sortable' => false],
             ['index' => 'actions', 'label' => 'Actions', 'sortable' => false, 'html' => true]
         ];
 
@@ -136,6 +136,7 @@ new class extends Component {
                 <option value="15">15</option>
             </select>
         </div>
+        
     </div>
 
     <x-table :headers="$headers" :rows="$rows" :sort="$sort" striped loading paginate persistent />

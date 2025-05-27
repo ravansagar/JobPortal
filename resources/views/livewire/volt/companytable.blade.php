@@ -67,6 +67,10 @@ new class extends Component {
         $this->resetPage();
     }
 
+    public function addCompany(){
+        $this->dispatch('addCompany');
+    }
+
     public function with(): array
     {
         $company = Company::query()
@@ -111,6 +115,12 @@ new class extends Component {
                 <option value="15">15</option>
             </select>
         </div>
+        {{-- <div class="flex mx-1">
+            <button type="button" wire:click="addCompany"
+                class="p-1 px-2 bg-green-400 hover:bg-green-500 text-white rounded-md">
+                &plus; Add Company
+            </button>
+        </div> --}}
     </div>
 
     <x-table :$headers :$rows :$sort striped loading paginate persistent />
@@ -135,5 +145,5 @@ new class extends Component {
             </div>
         @endif
     </div>
-
+    @livewire('createcompany')
 </div>

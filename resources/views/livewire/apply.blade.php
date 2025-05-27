@@ -1,4 +1,4 @@
-<div class="bg-gray-200 min-h-screen py-8">
+<div class="bg-gray-200 min-h-screen w-screen flex items-center justify-center align-center">
     @if (session()->has('success'))
         <div x-data="{ show: true }"
             x-init="setTimeout(() => { show = false; window.location.href='{{ route('home') }}' }, 2000)" x-show="show"
@@ -9,10 +9,10 @@
             class="p-4 bg-red-100 text-red-800 rounded text-right">{{ session('error') }}</div>
     @endif
 
-    <div class="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-2xl space-y-6 z-50">
+    <div class="max-h-screen w-[50vw] mx-auto p-6 bg-white shadow-md rounded-2xl space-y-6 z-50">
         <div class="flex mx-auto justify-between">
             <div>
-                <a href="{{route('home')}}" class="p-2 border border-black rounded-full">
+                <a href="{{route('home')}}" class="p-2 justify-center ring ring-black rounded-full">
                     &larr;
                 </a>
             </div>
@@ -47,9 +47,9 @@
             <div>
                 <label class="block font-semibold">Resume (PDF/DOC, Max 2MB)</label>
                 <x-form.input-field name="resume" type="file">
-                    <svg class="w-5 h-5" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 0H2V16H14V7H7V0Z" fill="#fff" />
-                        <path d="M9 0V5H14L9 0Z" fill="#fff" />
+                    <svg class="w-5 h-5 text-black" viewBox="0 0 16 16" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 0H2V16H14V7H7V0Z" fill="#1f1f1f" />
+                        <path d="M9 0V5H14L9 0Z" fill="#1f1f1f" />
                     </svg>
                 </x-form.input-field>
             </div>
@@ -98,13 +98,6 @@
                 </script>
                 @error('coverLetter') <span class="text-red-300 text-sm">{{ $message }}</span> @enderror
             </div>  
-            {{-- <div>
-                <label class="block font-semibold">Cover Letter</label>
-                <textarea name="coverLetter" rows="5"
-                    class="w-full mt-1 p-2 rounded-md bg-black/20 focus:outline-none border-none focus:ring-2 focus:ring-purple-300"></textarea>
-                @error('coverLetter') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            </div> --}}
-
             <div class="flex justify-end">
                 <button type="submit"
                     class="bg-blue-600 hover:bg-blue-700 items-center  text-white font-semibold py-2 px-6 rounded-xl">

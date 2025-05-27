@@ -3,11 +3,12 @@
         <div class="bg-white shadow rounded-lg mb-2">
             <div class="px-4 py-5 sm:px-6 flex flex-col md:flex-row md:items-center md:justify-between">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <div class="h-16 w-16 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-xl font-bold">
+                    {{-- @dump($profilePhoto) --}}
+                    <div class="h-24 w-24 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 text-xl font-bold">
                         @if($profilePhoto)
-                        <img src={{ asset($profilePhoto) }} class="h-16 w-16 rounded-full" loading="lazy"/>
+                            <img src={{ asset($profilePhoto) ?? $profilePhoto  }} class="h-24 w-24 rounded-full" loading="lazy"/>
                         @else
-                        {{ substr($user->name, 0, 1) }}
+                            <h1 class="text-5xl">{{ substr($user->name, 0, 1) }}</h1>
                         @endif
                     </div>
                     <div class="ml-4">

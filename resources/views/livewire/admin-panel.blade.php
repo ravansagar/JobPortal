@@ -1,8 +1,11 @@
 <div class="w-[100vw] flex overflow-hidden">
-    <div class="w-60 min-h-[91vh] bg-white border-r border-gray-200 p-4 flex flex-col justify-between text-sm font-semibold text-gray-800">
+
+
+    <div
+        class="w-60 min-h-[91vh] bg-white border-r border-gray-200 p-4 flex flex-col justify-between text-sm font-semibold text-gray-800">
         <div>
             <nav class="space-y-1">
-                <button wire:click="allJobs"
+                <a href="{{ route('admin', ['tab' => 'jobs']) }}"
                     class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 {{ $showJobs ? 'bg-gray-200' : '' }}">
                     <span>
                         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="#000000"
@@ -20,8 +23,8 @@
                         </svg>
                     </span>
                     <span>All Jobs</span>
-                </button>
-                <button wire:click="allComp"
+                </a>
+                <a href="{{ route('admin', ['tab' => 'companies']) }}"
                     class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 {{ $showComp ? 'bg-gray-200' : '' }}">
                     <span>
                         <svg class="h-[24px] w-[24px]" fill="#000000" viewBox="0 0 50 50"
@@ -36,8 +39,8 @@
                         </svg>
                     </span>
                     <span>Companies</span>
-                </button>
-                <button wire:click="allTags"
+                </a>
+                <a href="{{ route('admin', ['tab' => 'tags']) }}"
                     class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 {{ $showTags ? 'bg-gray-200' : '' }}">
                     <span>
                         <svg class="h-[24px] w-[24px]" viewBox="0 0 24 24" fill="none"
@@ -69,9 +72,9 @@
                         </svg>
                     </span>
                     <span>Categories</span>
-                </button>
+                </a>
                 <hr class="my-2">
-                <button wire:click="allUsers"
+                <a href="{{ route('admin', ['tab' => 'users']) }}"
                     class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 {{ $showUsers ? 'bg-gray-200' : '' }}">
                     <span><svg class="h-[24px] w-[24px]" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -89,8 +92,8 @@
                             </g>
                         </svg></span>
                     <span>Users</span>
-                </button>
-                <button wire:click="allAgents"
+                </a>
+                <a href="{{ route('admin', ['tab' => 'agents']) }}"
                     class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 {{ $showAgents ? 'bg-gray-200' : '' }}">
                     <span><svg height="24px" width="24px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"
@@ -111,12 +114,13 @@
                             </g>
                         </svg></span>
                     <span>Agents</span>
-                </button>
+                </a>
             </nav>
         </div>
 
 
-        <button wire:click="logout" class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-red-100 text-red-600">
+        <button wire:click="logout"
+            class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-red-100 text-red-600">
             <svg class="h-[24px] w-[24px]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -125,23 +129,56 @@
             <span>Logout</span>
         </button>
     </div>
-
     <div class="max-w-[90vw] overflow-hidden flex-1 px-8">
-        <div class="flex max-w-[50vw] mx-auto mt-3 justify-center">
-            <input type="text"  placeholder="Search by name..." wire:model.live.debounce.50="search"
-                class="w-full border bg-white/30 border-gray-500 rounded-l-full px-4 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <button class="bg-gray-100 border border-l-0 border-gray-300 rounded-r-full px-4">
-                <svg class="h-[20px] w-[20px]" fill="#000000" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M12.027 9.92L16 13.95 14 16l-4.075-3.976A6.465 6.465 0 0 1 6.5 13C2.91 13 0 10.083 0 6.5 0 2.91 2.917 0 6.5 0 10.09 0 13 2.917 13 6.5a6.463 6.463 0 0 1-.973 3.42zM1.997 6.452c0 2.48 2.014 4.5 4.5 4.5 2.48 0 4.5-2.015 4.5-4.5 0-2.48-2.015-4.5-4.5-4.5-2.48 0-4.5 2.014-4.5 4.5z"
-                            fill-rule="evenodd"></path>
-                    </g>
-                </svg>
-            </button>
-        </div>
+        @if($tab != null)
+            <div class="flex max-w-[50vw] mx-auto mt-3 justify-center">
+                <input type="text" placeholder="Search by name..." wire:model.live.debounce.50="search"
+                    class="w-full border bg-white/30 border-gray-500 rounded-l-full px-4 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button class="bg-gray-100 border border-l-0 border-gray-300 rounded-r-full px-4">
+                    <svg class="h-[20px] w-[20px]" fill="#000000" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M12.027 9.92L16 13.95 14 16l-4.075-3.976A6.465 6.465 0 0 1 6.5 13C2.91 13 0 10.083 0 6.5 0 2.91 2.917 0 6.5 0 10.09 0 13 2.917 13 6.5a6.463 6.463 0 0 1-.973 3.42zM1.997 6.452c0 2.48 2.014 4.5 4.5 4.5 2.48 0 4.5-2.015 4.5-4.5 0-2.48-2.015-4.5-4.5-4.5-2.48 0-4.5 2.014-4.5 4.5z"
+                                fill-rule="evenodd"></path>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+        @endif
+
+        @if($tab == null)
+            <div class="w-full px-8 py-4">
+                <div class="w-full flex flex-col md:flex-row gap-4">
+                    <div class="min-h-[50%] w-[48%] bg-white rounded-lg shadow px-6 py-4">
+                        <h1 class="text-3xl font-semibold">Hello, {{ Auth::user()->name }}</h1>
+                        <h1 class="text-md opacity-70">
+                            {{ now()->setTimezone('Asia/Kathmandu')->format('D, d F Y  h:i:s A', 'UTF+545') }}
+                        </h1>
+                        <h1 class="text-5xl py-12 font-semibold px-8 flex justify-center text-center">Welcome to the Admin
+                            Dashboard</h1>
+                    </div>
+                    <div class="h-[50%] w-[48%] bg-white rounded-lg shadow px-4 py-2">
+                        <h2 class="text-lg font-semibold flex justify-center">Users Overview</h2>
+                        @livewire('userstatus')
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-4 my-3">
+                    <div class="h-[50%] w-[48%] bg-white rounded-lg shadow px-4 py-2">
+                        <h2 class="text-lg font-semibold flex justify-center">Jobs Created</h2>
+                        @livewire('newjobs')
+                    </div>
+                    <div class="w-[48%] bg-white rounded-lg shadow px-4 py-2">
+                        <h2 class="text-lg font-semibold flex justify-center">Applications Status</h2>
+                        @livewire('applicationstatus')
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @if($showJobs)
             @livewire('volt.jobtable')
         @endif

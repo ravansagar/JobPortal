@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use App\Models\Job;
 use Livewire\WithFileUploads;
@@ -10,6 +11,7 @@ use App\Models\Company;
 use Illuminate\Support\Facades\URL;
 use App\Models\User;
 
+#[Title("Profile Page")]
 class ProfilePage extends Component
 {
     use WithFileUploads;

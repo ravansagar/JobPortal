@@ -32,16 +32,16 @@
                     </dd>
                 </div>
                 <div class="flex flex-col-reverse gap-1">
-                    <dt class="text-base text-gray-300">Categories</dt>
-                    <dd class="text-xl font-semibold tracking-tight text-white">
+                    <dt class="text-base text-blue-500">Categories</dt>
+                    <dd class="text-xl font-semibold tracking-tight text-blue-500">
                         {{-- <button wire:click="$set('showTags', true)" class="cursor-pointer">{{ $tag }}+</button>
                         --}}
                         <button type="button" wire:click="showTagList" class="cursor-pointer">{{ $tag }}+</button>
                     </dd>
                 </div>
                 <div class="flex flex-col-reverse gap-1">
-                    <dt class="text-base text-gray-300">Companies</dt>
-                    <dd class="text-xl font-semibold tracking-tight text-white">
+                    <dt class="text-base text-blue-500">Companies</dt>
+                    <dd class="text-xl font-semibold text-blue-500 tracking-tight">
 
                         <button type="button" wire:click="showCompanyList"
                             class="cursor-pointer">{{ $companies }}+</button>

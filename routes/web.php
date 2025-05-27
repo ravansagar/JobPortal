@@ -45,6 +45,6 @@ Route::view('/profile', 'profile.index')->name('profile')->middleware(['auth', '
 Route::get('/add', CreateJob::class)->name('jobs.create')->middleware(['auth', 'role:admin,agent']);
 Route::get('/job/{id}/edit', UpdateJob::class)->name('jobs.update')->middleware(['auth', 'role:admin,agent']);
 
-Route::get('/admin', AdminPanel::class)->name('admin')->middleware(['auth', 'role:admin']);
+Route::get('/admin-2003-december/{tab?}', AdminPanel::class)->name('admin')->middleware(['auth', 'role:admin']);
 
 Route::get('/applications/{id?}', AppliedJobs::class)->name('applications')->middleware(['auth','role:agent']);
